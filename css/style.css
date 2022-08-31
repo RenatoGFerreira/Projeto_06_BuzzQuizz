@@ -36,7 +36,70 @@ html, body{
 .conteudo{
     width: 1051px;
     margin: 40px auto;
+    justify-content: center;
+    align-items: center;
 }
+
+main {
+    justify-content: center;
+    align-items: center;
+}
+
+.criar {
+    width: 1051px;
+    height: 181px;
+    color: #d3d3d3;
+    border: rgb(202, 202, 202) dashed 2px;
+    background-color: white;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.criarQuizz {
+    width: 151px;
+    height: 40px;
+    color: red;
+    background-color: none;
+    border: red dashed 2px;
+    border-radius: 50px;
+    font-size: 21px;
+    margin-top: 35px;
+}
+
+.criarQuizz:hover {
+    cursor: pointer;
+}
+
+.todosQuizzes {
+    width: 1051px;
+    height: auto;
+    background-color: black;
+    margin-top: 77px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo {
+    width: 1051px;
+    height: 23px;
+    background-color: rgb(137, 133, 133);
+}
+
+.quizzes {
+    width: 1067px;
+    height: 374px;
+    display: flex;
+    flex-direction: column;
+    background-color: #b8b6b6;
+}
+
 
 
 
