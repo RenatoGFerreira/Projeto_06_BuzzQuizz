@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&display=swap');
+
+/* CONFIGUAÇÕES GERAIS DO SITE ********** */
+
+html, body{
+    font-family: 'Roboto', sans-serif;
+    background-color: #E5E5E5;
+}
+
+
+/* CABECALHO DO BUZZQUIZ ********** */
+.topo{
+    background-color: #EC362D;
+    height: 69px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo{
+    margin: auto 0;
+}
+
+.logo a{
+    text-decoration: none;
+}
+
+.logo a h1{
+    color: #fff;
+    font-weight: 700;
+    font-size: 37px;
+}
