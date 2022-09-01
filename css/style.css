@@ -16,6 +16,7 @@ html, body{
     display: flex;
     align-items: center;
     justify-content: center;
+
 }
 
 .logo{
@@ -129,30 +130,18 @@ main {
     top: 0px;
     position: absolute;
     justify-content:center;
+    line-height: 40px;
     display: flex;
     text-align: center;
     align-items: inherit;
     flex-wrap: wrap;
     line-height: 25px;
     font-size: inherit;
+    align-items: flex-end;
+    font-size: 19px;
     color: white;
-    box-sizing: border-box;
-    padding-bottom: 13px;
     z-index: 1;
     background: inherit;
-}
-
-.paginaQuizz {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    background-color: #d3d3d3;
 }
 
 .boxTitulo {
@@ -174,55 +163,11 @@ main {
 
 .boxPerguntas {
     width: 713px;
+}
+
+.criar1, .criar2, .criar3, .criar4 {
+    min-height:955px;
     height: auto;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    margin-top: 70px;
-    margin-bottom: 30px;
-}
-
-.pergunta {
-    width: 689px;
-    height: 138px;
-    background-color: red;
-    font-size: 23px;
-    justify-content: center;
-    display:flex;
-    align-items: center;
-    text-align:center;
-    color:white;
-}
-
-.opcoes {
-    width: 689px;
-    height: auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-.opcao {
-    display: flex;
-    flex-direction: column;
-    font-size: 20px;
-    font-weight: 700;
-}
-
-.opcaoImg {
-    width: 330px;
-    height: 175px;
-   margin-top: 20px;
-   margin-bottom: 12px;
-   cursor: pointer;
-}
-
-.hidden {
-    visibility: hidden;
-}
-
-.criar1, .criar2 {
-    height:955px;
     width: 100%;
     background-color: #E5E5E5;
     z-index:1;
@@ -234,13 +179,17 @@ main {
     overflow-y: scroll;
     
 }
-.criar1titulo, .criar2titulo{
-    width: 224px;
+.criar1titulo, .criar2titulo, .criar3titulo, .criar4titulo {
+    min-width: 224px;
+    width:auto;
     height:27px;
     font-size:23px;
     line-height: 26.95px;
-    margin-top: 71px;    
+    margin-top: 71px;  
+      
 }
+
+
 .criar1infosquizz{
     height: auto;
     width:600px;
@@ -250,7 +199,7 @@ main {
     box-sizing: border-box;
 
 }
-.criar1botao, .criar2botao{
+.criar1botao, .criar2botao, .criar3botao, .criar4botao{
     margin-top:85px;
     width:370px;
     height: 54px;
@@ -262,10 +211,67 @@ main {
     color: #FFF5F4;
     font-weight: 400;
 }
-.criar1botao:hover{
+.criar1botao:hover, .criar2botao:hover, .criar3botao:hover, .criar4botao:hover, .criar4botaovoltar{
     cursor: pointer;
 }
-.inputcriar1, .inputcriar2{
+.criar2botao{
+    margin-bottom: 26px;
+}
+.criar4botaovoltar{
+    width:370px;
+    height: 54px;
+    background-color:#E5E5E5;
+    border: none;
+    font-size:18px;
+    line-height: 24.61px;
+    text-align: center;
+    font-weight: 400;
+    color: #818181;
+    margin-bottom: 28px;
+}
+.criar4 img{
+    width:500px;
+    height: 266px;
+    border-radius: 5px;
+    z-index:0;
+    
+    
+
+}
+.divimagemcriar4 {
+    width:510px;
+    height: 270px;
+    border-radius: 5px;
+    margin-top: 46px;
+    position: relative;
+    
+
+}
+.divimagemcriar4 h1{
+    height: 266px;
+    width:500px;
+    position: absolute;
+    top:0px;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2225841020001751) 44%, rgba(0,0,0,0.5139006286108193) 100%);
+    display:flex;
+    align-items:flex-end;
+    padding: 10px;
+    box-sizing:border-box;
+
+    
+    color: #FFFFFF;
+    font-size: 23px;
+    line-height: 27px;
+    font-weight: 400;
+    
+    
+
+
+}
+
+    
+
+.inputcriar1, .inputcriar2, .inputcriar3{
     font-style:italic;
     font-size:19px;
     line-height: 22.27px;
@@ -275,9 +281,10 @@ main {
     margin-bottom: 9px;
     border-radius: 5px;
     outline: none;
+    margin-left:8px;
 }
 
-.criar2perguntas{
+.criar2perguntas, .criar3niveis {
     display:flex;
     height:auto;
     min-height: 74px;
@@ -296,8 +303,22 @@ main {
 .criar2perguntas p{
     margin-top: 28px;
     margin-bottom:24px;
+    margin-left: 8px;
 }
-.pergunta1{
+.criar3niveis p{
+    margin-top: 28px;
+    margin-bottom:24px;
+    margin-left: 8px;
+}
+.inputurlimagemincorreta1pergunta1, .inputurlimagemincorreta2pergunta1, .inputurlimagemincorreta3pergunta1{
+    margin-bottom: 32px;
+}
+.pergunta1 {
+    padding:5px;
+    flex-wrap: wrap;
+    height: auto;
+}
+.nivel1{ 
     padding:5px;
     flex-wrap: wrap;
     height: auto;
