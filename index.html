@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,8 +10,10 @@
     <link rel="stylesheet" href="css/style.css">
     <title>Projeto_06_BuzzQuizz</title>
 </head>
+
 <body>
-    <header class="topo"> <!--CABECALHO DO BUZZQUIZ **********-->
+    <header class="topo">
+        <!--CABECALHO DO BUZZQUIZ **********-->
         <div class="logo">
             <a href="#">
                 <h1>BuzzQuizz</h1>
@@ -28,62 +31,118 @@
                 <div class="quizz">
                     <img src="./ImagemTeste.jpg" class="quizzImg">
                     <div class=" tituloQuizz">Este é o titulo do quizz</div>
-                </div>    
+                </div>
                 <div class="quizz">
                     <img src="./ImagemTeste.jpg" class="quizzImg">
                     <div class=" tituloQuizz">Este é o titulo do quizz</div>
-                </div>   
+                </div>
                 <div class="quizz">
                     <img src="./ImagemTeste.jpg" class="quizzImg">
                     <div class=" tituloQuizz">Este é o titulo do quizz</div>
-                </div>   
+                </div>
                 <div class="quizz">
                     <img src="./ImagemTeste.jpg" class="quizzImg">
                     <div class=" tituloQuizz">Este é o titulo do quizz</div>
-                </div>   
+                </div>
             </div>
         </section>
-        
+
     </main>
     <div class="criar1 escondido">
         <div class="criar1titulo"><strong>Comece pelo começo</strong></div>
         <div class="criar1infosquizz">
             <input type="text" class="criar1tituloquizz inputcriar1" placeholder="Título do seu quizz">
             <input type="text" class="criar1urlquizz inputcriar1" placeholder="URL da imagem do seu quizz">
-            <input type="text" class="criar1quantidadeperguntasquizz inputcriar1" placeholder="Quantidade de perguntas do seu quizz">
-            <input type="text" class="criar1quantidadeniveisquizz inputcriar1" placeholder="Quantidade de niveis do seu quizz">
+            <input type="text" class="criar1quantidadeperguntasquizz inputcriar1"
+                placeholder="Quantidade de perguntas do seu quizz">
+            <input type="text" class="criar1quantidadeniveisquizz inputcriar1"
+                placeholder="Quantidade de niveis do seu quizz">
         </div>
         <button class="criar1botao">Prosseguir para criar perguntas</button>
 
     </div>
     <div class="criar2 escondido">
         <div class="criar2titulo"><strong>Crie suas perguntas</strong></div>
-        <div class="criar2perguntas pergunta1"> 
-            <div class="textopergunta1"><p> <strong>Pergunta 1</strong></p></div>
+        <div class="criar2perguntas pergunta1">
+            <div class="textopergunta1">
+                <p> <strong>Pergunta 1</strong></p>
+            </div>
             <img src="iconeabrir.svg" class="iconeabrir iconepergunta1 escondido"></img>
             <input type="text" class="inputcriar2 inputextopergunta1" placeholder="Texto da pergunta 1">
             <input type="text" class="inputcriar2 inputcorpergunta1" placeholder="Cor de fundo da pergunta 1">
-            <div class="respostacorretapergunta1"><p> <strong>Resposta correta</strong></p></div>
+
+            <div class="respostacorretapergunta1">
+                <p> <strong>Resposta correta</strong></p>
+            </div>
             <input type="text" class="inputcriar2 inputrespostacorretapergunta1" placeholder="Texto da pergunta 1">
             <input type="text" class="inputcriar2 inputcorpergunta1" placeholder="Cor de fundo da pergunta 1">
 
+            <div class="repostasincorretaspergunta1">
+                <p> <strong>Respostas incorretas</strong></p>
+            </div>
+            <input type="text" class="inputcriar2 inpurespostaincorreta1pergunta1" placeholder="Resposta Incorreta 1">
+            <input type="text" class="inputcriar2 inputurlimagemincorreta1pergunta1" placeholder="URL da imagem 1">
+            <input type="text" class="inputcriar2 inpurespostaincorreta2pergunta1" placeholder="Resposta Incorreta 2">
+            <input type="text" class="inputcriar2 inputurlimagemincorreta2pergunta1" placeholder="URL da imagem 2">
+            <input type="text" class="inputcriar2 inpurespostaincorreta3pergunta1" placeholder="Resposta Incorreta 3">
+            <input type="text" class="inputcriar2 inputurlimagemincorreta3pergunta1" placeholder="URL da imagem 3">
+
+
+
 
         </div>
-        <div class="criar2perguntas pergunta2"> 
-            <div class="textopergunta2"><p> <strong>Pergunta 2</strong></p></div>
+        <div class="criar2perguntas pergunta2">
+            <div class="textopergunta2">
+                <p> <strong>Pergunta 2</strong></p>
+            </div>
             <img src="iconeabrir.svg" class="iconeabrir iconepergunta2"></img>
         </div>
-        <div class="criar2perguntas pergunta3"> 
-            <div class="textopergunta1"><p> <strong>Pergunta 3</strong></p></div>
+        <div class="criar2perguntas pergunta3">
+            <div class="textopergunta1">
+                <p> <strong>Pergunta 3</strong></p>
+            </div>
             <img src="iconeabrir.svg" class="iconeabrir iconepergunta3"></img>
         </div>
-        <div class="criar2perguntas pergunta4"> 
-            <div class="textopergunta1"><p> <strong>Pergunta 4</strong></p></div>
+        <div class="criar2perguntas pergunta4">
+            <div class="textopergunta1">
+                <p> <strong>Pergunta 4</strong></p>
+            </div>
             <img src="iconeabrir.svg" class="iconeabrir iconepergunta4"></img>
         </div>
         <button class="criar2botao">Prosseguir para criar niveis</button>
     </div>
-    
-    <script src="js/script.js"></script>
+    <div class="criar3">
+        <div class="criar3titulo"><strong>Agora, decida os níveis</strong></div>
+        <div class="criar3niveis nivel1">
+           
+            <div class="textonivel1">
+                <p> <strong>Nível 1</strong></p>
+            </div>
+            <img src="iconeabrir.svg" class="iconeabrir iconepergunta1 escondido"></img>
+            <input type="text" class="inputcriar3 inputtitulonivel1" placeholder="Título do nível">
+            <input type="text" class="inputcriar3 inputporcentagemnivel1" placeholder="% de acerto mínima">
+            <input type="text" class="inputcriar3 inputurlnivel1" placeholder="URL da imagem do nível">
+            <input type="text" class="inputcriar3 inputdescricaonivel1" placeholder="Descrição do nível">
+
+            <div class="criar3niveis nivel2">
+                <div class="textonivel2">
+                    <p> <strong>Nivel 2</strong></p>
+                </div>
+                <img src="iconeabrir.svg" class="iconeabrir iconepergunta2"></img>
+            </div>
+            <div class="criar3niveis nivel3">
+                <div class="textonivel3">
+                    <p> <strong>Nivel 3</strong></p>
+                </div>
+                <img src="iconeabrir.svg" class="iconeabrir iconepergunta3"></img>
+            </div>
+            
+        </div>
+        <button class="criar3botao">Finalizar Quizz</button>
+    </div>
+
+
+        <script src="js/script.js"></script>
 </body>
+
 </html>
