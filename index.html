@@ -21,14 +21,14 @@
         </div>
     </header> <!-- /CABECALHO DO BUZZQUIZ **********-->
     <main class="conteudo">
-        <section class="criar">
+        <section class="criar"> <!-- CAIXA DE CRIAÇÃO DE QUIZZ -->
             <div class="tituloSemQuizz">Você não criou nenhum quizz ainda :(</div>
             <button class="criarQuizz">Criar Quizz</button>
         </section>
-        <section class="todosQuizzes">
+        <section class="todosQuizzes"> <!-- CAIXA COM OS QUIZZES -->
             <div class="titulo">Todos os Quizzes</div>
             <div class="quizzes">
-                <div class="quizz">
+                <div class="quizz" onclick="iniciarQuizz()">
                     <img src="./ImagemTeste.jpg" class="quizzImg">
                     <div class=" tituloQuizz">Este é o titulo do quizz</div>
                 </div>
@@ -41,12 +41,48 @@
                     <div class=" tituloQuizz">Este é o titulo do quizz</div>
                 </div>
                 <div class="quizz">
+                    <div class=" tituloQuizz">Este é o titulo do quizz ksjdbwk sjdbwdo sodbhowhdo</div>
+                </div>    
+                <div class="quizz" onclick="iniciarQuizz()">
+                    <img src="./ImagemTeste.jpg" class="quizzImg">
+                    <div class=" tituloQuizz">Este é o titulo do quizz</div>
+                </div>   
+                <div class="quizz" onclick="iniciarQuizz()">
+                    <img src="./ImagemTeste.jpg" class="quizzImg">
+                    <div class=" tituloQuizz">Este é o titulo do quizz</div>
+                </div>   
+                <div class="quizz" onclick="iniciarQuizz()">
                     <img src="./ImagemTeste.jpg" class="quizzImg">
                     <div class=" tituloQuizz">Este é o titulo do quizz</div>
                 </div>
             </div>
         </section>
+        <section class="paginaQuizz hidden"> <!-- PÁGINA DE RESPOSTAS DO QUIZZ -->
+            <div class="boxTitulo">Este é o título do quizz!</div>
+            <div class="boxPerguntas">
+                <div class="pergunta">Esta é uma pergunta do quizz!</div>
+                <div class="opcoes">
+                    <div class="opcao">
+                        <img class="opcaoImg" src="./ImagemTeste.jpg">
+                        esta é uma opcao!
+                    </div>
+                    <div class="opcao">
+                        <img class="opcaoImg" src="./ImagemTeste.jpg">
+                        esta é uma opcao!
+                    </div>
+                    <div class="opcao">
+                        <img class="opcaoImg" src="./ImagemTeste.jpg">
+                        esta é uma opcao!
+                    </div>
+                    <div class="opcao">
+                        <img class="opcaoImg" src="./ImagemTeste.jpg">
+                        esta é uma opcao!
+                    </div>
+                </div>
+            </div>
+        </section>
 
+>>>>>>> dab8971368c4b9eacac469a8b7ce5afabd6902bc
     </main>
     <div class="criar1 escondido">
         <div class="criar1titulo"><strong>Comece pelo começo</strong></div>
