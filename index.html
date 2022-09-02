@@ -21,58 +21,44 @@
         </div>
     </header> <!-- /CABECALHO DO BUZZQUIZ **********-->
     <main class="conteudo">
-        <section class="criar"> <!-- CAIXA DE CRIAÇÃO DE QUIZZ -->
+        <section class="criar">
+            <!-- CAIXA DE CRIAÇÃO DE QUIZZ -->
             <div class="tituloSemQuizz">Você não criou nenhum quizz ainda :(</div>
             <button class="criarQuizz">Criar Quizz</button>
         </section>
-        <section class="todosQuizzes"> <!-- CAIXA COM OS QUIZZES -->
+        <section class="todosQuizzes">
+            <!-- CAIXA COM OS QUIZZES -->
             <div class="titulo">Todos os Quizzes</div>
             <div class="quizzes">
                 <div class="quizz" onclick="iniciarQuizz(this)">
                     <img src="./ImagemTeste.jpg" class="quizzImg">
-                    <div class=" tituloQuizz">Este é o titulo do quizz</div>
-                </div>
-                <div class="quizz" onclick="iniciarQuizz(this)">
-                    <img src="./ImagemTeste.jpg" class="quizzImg">
-                    <div class=" tituloQuizz">Este é o titulo do quizz ksjdbwk sjdbwdo sodbhowhdo</div>
-                </div>    
-                <div class="quizz" onclick="iniciarQuizz(this)">
-                    <img src="./ImagemTeste.jpg" class="quizzImg">
-                    <div class=" tituloQuizz">Este é o titulo do quizz</div>
-                </div>   
-                <div class="quizz" onclick="iniciarQuizz(this)">
-                    <img src="./ImagemTeste.jpg" class="quizzImg">
-                    <div class=" tituloQuizz">Este é o titulo do quizz</div>
-                </div>   
-                <div class="quizz" onclick="iniciarQuizz(this)">
-                    <img src="./ImagemTeste.jpg" class="quizzImg">
-                    <div class=" tituloQuizz">Este é o titulo do quizz</div>
-                </div>
+                    <div class=" tituloQuizz">Este é o titulo do quizz</div> 
             </div>
         </section>
-        <section class="paginaQuizz hidden"> <!-- PÁGINA DE RESPOSTAS DO QUIZZ -->
+        <section class="paginaQuizz hidden">
+            <!-- PÁGINA DE RESPOSTAS DO QUIZZ -->
             <div class="boxTitulo">
                 <img class="tituloImg" src="./ImagemTeste.jpg">
                 <div class="tituloQuizz">Este é o título do quizz!</div>
             </div>
-            <div class="boxPerguntas">
+            <div class="boxPerguntas"> <!-- BOX PERGUNTAS QUIZZ -->
                 <div class="pergunta">Esta é uma pergunta do quizz!</div>
                 <div class="opcoes">
-                    <div class="opcao">
+                    <div class="opcao item1" onclick="selecionaResposta(this)">
                         <img class="opcaoImg" src="./ImagemTeste.jpg">
-                        esta é uma opcao!
+                        opção 1
                     </div>
-                    <div class="opcao">
+                    <div class="opcao item2" onclick="selecionaResposta(this)">
                         <img class="opcaoImg" src="./ImagemTeste.jpg">
-                        esta é uma opcao!
+                        opção 2
                     </div>
-                    <div class="opcao">
+                    <div class="opcao item3" onclick="selecionaResposta(this)">
                         <img class="opcaoImg" src="./ImagemTeste.jpg">
-                        esta é uma opcao!
+                        opção 3
                     </div>
-                    <div class="opcao">
+                    <div class="opcao item4" onclick="selecionaResposta(this)">
                         <img class="opcaoImg" src="./ImagemTeste.jpg">
-                        esta é uma opcao!
+                        opção 4
                     </div>
                 </div>
             </div>
@@ -110,17 +96,14 @@
 
             <div class="repostasincorretaspergunta1">
                 <p> <strong>Respostas incorretas</strong></p>
+                <input type="text" class="inputcriar2 inpurespostaincorreta1pergunta1" placeholder="Resposta Incorreta 1">
+                <input type="text" class="inputcriar2 inputurlimagemincorreta1pergunta1" placeholder="URL da imagem 1">
+                <input type="text" class="inputcriar2 inpurespostaincorreta2pergunta1" placeholder="Resposta Incorreta 2">
+                <input type="text" class="inputcriar2 inputurlimagemincorreta2pergunta1" placeholder="URL da imagem 2">
+                <input type="text" class="inputcriar2 inpurespostaincorreta3pergunta1" placeholder="Resposta Incorreta 3">
+                <input type="text" class="inputcriar2 inputurlimagemincorreta3pergunta1" placeholder="URL da imagem 3">
             </div>
-            <input type="text" class="inputcriar2 inpurespostaincorreta1pergunta1" placeholder="Resposta Incorreta 1">
-            <input type="text" class="inputcriar2 inputurlimagemincorreta1pergunta1" placeholder="URL da imagem 1">
-            <input type="text" class="inputcriar2 inpurespostaincorreta2pergunta1" placeholder="Resposta Incorreta 2">
-            <input type="text" class="inputcriar2 inputurlimagemincorreta2pergunta1" placeholder="URL da imagem 2">
-            <input type="text" class="inputcriar2 inpurespostaincorreta3pergunta1" placeholder="Resposta Incorreta 3">
-            <input type="text" class="inputcriar2 inputurlimagemincorreta3pergunta1" placeholder="URL da imagem 3">
-
-
-
-
+            
         </div>
         <div class="criar2perguntas pergunta2">
             <div class="textopergunta2">
@@ -140,12 +123,12 @@
             </div>
             <img src="iconeabrir.svg" class="iconeabrir iconepergunta4"></img>
         </div>
-        <button class="criar2botao">Prosseguir para criar niveis</button>
+        <button class="criar2botao">Prosseguir para criar niveis</button>        
     </div>
     <div class="criar3 escondido">
         <div class="criar3titulo"><strong>Agora, decida os níveis</strong></div>
         <div class="criar3niveis nivel1">
-           
+
             <div class="textonivel1">
                 <p> <strong>Nível 1</strong></p>
             </div>
@@ -167,7 +150,7 @@
                 </div>
                 <img src="iconeabrir.svg" class="iconeabrir iconepergunta3"></img>
             </div>
-            
+
         </div>
         <button class="criar3botao">Finalizar Quizz</button>
     </div>
