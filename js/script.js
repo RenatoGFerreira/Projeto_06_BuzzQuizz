@@ -1,6 +1,13 @@
 
 function randomizarRespostas () {
-    let respostas = document.querySelector(".opcoes"); // A FAZER
+    /* let respostas = document.querySelector(".opcoes");
+    
+    respostas.forEach(resposta => {
+        let randomPos = Math.floor(Math.random() * qtdRespostas);
+        resposta.style.order = randomPos;
+    }); */
+
+    return Math.random() -0.5;
 
 }
 
@@ -52,6 +59,8 @@ function renderizarQuizzSelecionado (response) {
     quizzImg = response.data.image;
     
     for (let i = 0; i< perguntasArr.length; i++) {
+
+        perguntasArr[i].answers.sort(randomizarRespostas)
 
         for (let j = 0; j < perguntasArr[i].answers.length; j++) {
 
