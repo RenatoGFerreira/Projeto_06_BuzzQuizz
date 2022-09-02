@@ -12,7 +12,6 @@ function randomizarRespostas () {
 }
 
 function obterQuizzes () {
-
     const promise = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes');
 
     promise.then(renderizarQuizzes);
@@ -33,13 +32,12 @@ function renderizarQuizzes (response) {
             <img src="${quizzesArr[i].image}" class="quizzImg">
             <div class=" tituloQuizz">${quizzesArr[i].title}</div>
         </div>`
-
     }
 }
 
 function iniciarQuizz (elemento) {
-    
-    console.log(elemento)
+    const objetoMain = document.querySelector('.quizzes')
+    objetoMain.classList.toggle('escondido')
 
     const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${elemento}`)
 
@@ -136,6 +134,15 @@ function selecionaResposta(divSelecionado){
     }
     
     console.log(item3)
+
+}
+
+function criarQuizz(){
+    const objetoCriarGame = document.querySelector('.criar1')
+    const objetoMain = document.querySelector('.conteudo')
+
+    objetoCriarGame.classList.toggle('escondido')
+    objetoMain.classList.toggle('escondido')
 
 }
 
