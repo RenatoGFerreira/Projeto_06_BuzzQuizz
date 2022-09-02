@@ -5,7 +5,6 @@ function randomizarRespostas () {
 }
 
 function obterQuizzes () {
-
     const promise = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes');
 
     promise.then(renderizarQuizzes);
@@ -13,6 +12,7 @@ function obterQuizzes () {
 }
 
 function renderizarQuizzes (response) {
+
 
     const quizzesArr = response.data;
     const quizzCard = document.querySelector('.quizzes');
@@ -128,5 +128,11 @@ function selecionaResposta(divSelecionado){
     
     console.log(item3)
 
+}
+
+function criarQuizz(){
+    let item = document.querySelector('.criar1')
+    console.log(item)
+    item.classList.toggle('escondido')
 }
 

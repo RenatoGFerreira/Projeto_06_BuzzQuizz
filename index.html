@@ -21,13 +21,11 @@
         </div>
     </header> <!-- /CABECALHO DO BUZZQUIZ **********-->
     <main class="conteudo">
-        <section class="criar">
-            <!-- CAIXA DE CRIAÇÃO DE QUIZZ -->
+        <section class="criar"><!-- CAIXA DE CRIAÇÃO DE QUIZZ -->
             <div class="tituloSemQuizz">Você não criou nenhum quizz ainda :(</div>
-            <button class="criarQuizz">Criar Quizz</button>
-        </section>
-        <section class="todosQuizzes">
-            <!-- CAIXA COM OS QUIZZES -->
+            <button class="criarQuizz" onclick="criarQuizz()">Criar Quizz</button>
+        </section><!-- /CAIXA DE CRIAÇÃO DE QUIZZ -->
+        <section class="todosQuizzes"><!-- CAIXA COM OS QUIZZES -->
             <div class="titulo">Todos os Quizzes</div>
             <div class="quizzes">
                 <div class="quizz" onclick="iniciarQuizz(this)">
@@ -62,7 +60,6 @@
                 </div>
             </div>
         </section>
-
     </main>
     <div class="criar1 escondido">
         <div class="criar1titulo"><strong>Comece pelo começo</strong></div>
@@ -75,7 +72,6 @@
                 placeholder="Quantidade de niveis do seu quizz">
         </div>
         <button class="criar1botao">Prosseguir para criar perguntas</button>
-
     </div>
     <div class="criar2 escondido">
         <div class="criar2titulo"><strong>Crie suas perguntas</strong></div>
