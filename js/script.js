@@ -1,7 +1,3 @@
-function iniciarQuizz () {
-    let mostrarQuizz = document.querySelector(".paginaQuizz");
-    mostrarQuizz.classList.toggle('hidden');
-}
 
 function randomizarRespostas () {
     let respostas = document.querySelector(".opcoes"); // A FAZER
@@ -10,7 +6,6 @@ function randomizarRespostas () {
 
 function obterQuizzes () {
 
-    console.log('pqp')
     const promise = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes');
 
     promise.then(renderizarQuizzes);
@@ -19,22 +14,75 @@ function obterQuizzes () {
 
 function renderizarQuizzes (response) {
 
-    console.log(response.data)
     const quizzesArr = response.data;
     const quizzCard = document.querySelector('.quizzes');
     quizzCard.innerHTML = '';
 
     for (let i = 0; i < quizzesArr.length; i++) {
-        console.log(quizzesArr[i].image)
+
         quizzCard.innerHTML +=
-        
-        `<div class="quizz" onclick="iniciarQuizz(this)">
+
+        `<div class="quizz" onclick="iniciarQuizz(this.id)" id="${quizzesArr[i].id}">
             <img src="${quizzesArr[i].image}" class="quizzImg">
             <div class=" tituloQuizz">${quizzesArr[i].title}</div>
         </div>`
 
     }
 }
+
+function iniciarQuizz (elemento) {
+    
+    console.log(elemento)
+
+    const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${elemento}`)
+
+    promise.then(renderizarQuizzSelecionado)
+
+
+}
+
+function renderizarQuizzSelecionado (response) {
+
+    const paginaQuizz = document.querySelector('.paginaQuizz');
+    paginaQuizz.innerHTML = '';
+    let paginaQuizzRespostas = ''
+    paginaQuizz.classList.toggle('hidden');
+
+    perguntasArr = response.data.questions;
+    quizzImg = response.data.image;
+    
+    for (let i = 0; i< perguntasArr.length; i++) {
+
+        for (let j = 0; j < perguntasArr[i].answers.length; j++) {
+
+            paginaQuizzRespostas += 
+            `<div class="opcao item1" onclick="selecionaResposta(this)">
+                <img class="opcaoImg" src="${perguntasArr[i].answers[j].img}">
+                ${perguntasArr[i].answers[j].text}
+            </div>`
+        }
+
+        paginaQuizz.innerHTML += 
+        
+        `<div class="boxPerguntas">
+        <div class="pergunta">${perguntasArr[i].title}</div>
+            <div class="opcoes">
+                ${paginaQuizzRespostas}
+            </div>
+        </div>`;
+
+        paginaQuizzRespostas = '';
+    }
+
+    paginaQuizz.innerHTML = 
+
+        `<div class="boxTitulo">
+            <img class="tituloImg" src="${response.data.img}">
+            <div class="tituloQuizz">${response.data.title}</div>
+        </div>`+paginaQuizz.innerHTML;
+
+}
+
 
 function selecionaResposta(divSelecionado){
     
