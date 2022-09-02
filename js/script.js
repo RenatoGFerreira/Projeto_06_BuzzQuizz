@@ -13,7 +13,6 @@ function obterQuizzes () {
 
 function renderizarQuizzes (response) {
 
-
     const quizzesArr = response.data;
     const quizzCard = document.querySelector('.quizzes');
     quizzCard.innerHTML = '';
@@ -26,13 +25,12 @@ function renderizarQuizzes (response) {
             <img src="${quizzesArr[i].image}" class="quizzImg">
             <div class=" tituloQuizz">${quizzesArr[i].title}</div>
         </div>`
-
     }
 }
 
 function iniciarQuizz (elemento) {
-    
-    console.log(elemento)
+    const objetoMain = document.querySelector('.quizzes')
+    objetoMain.classList.toggle('escondido')
 
     const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${elemento}`)
 
@@ -131,8 +129,11 @@ function selecionaResposta(divSelecionado){
 }
 
 function criarQuizz(){
-    let item = document.querySelector('.criar1')
-    console.log(item)
-    item.classList.toggle('escondido')
+    const objetoCriarGame = document.querySelector('.criar1')
+    const objetoMain = document.querySelector('.conteudo')
+
+    objetoCriarGame.classList.toggle('escondido')
+    objetoMain.classList.toggle('escondido')
+
 }
 
