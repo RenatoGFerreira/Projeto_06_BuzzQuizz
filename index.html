@@ -11,7 +11,7 @@
     <title>Projeto_06_BuzzQuizz</title>
 </head>
 
-<body>
+<body onload="obterQuizzes()">
     <header class="topo">
         <!--CABECALHO DO BUZZQUIZ **********-->
         <div class="logo">
@@ -28,23 +28,23 @@
         <section class="todosQuizzes"> <!-- CAIXA COM OS QUIZZES -->
             <div class="titulo">Todos os Quizzes</div>
             <div class="quizzes">
-                <div class="quizz" onclick="iniciarQuizz()">
+                <div class="quizz" onclick="iniciarQuizz(this)">
                     <img src="./ImagemTeste.jpg" class="quizzImg">
                     <div class=" tituloQuizz">Este é o titulo do quizz</div>
                 </div>
-                <div class="quizz" onclick="iniciarQuizz()">
+                <div class="quizz" onclick="iniciarQuizz(this)">
                     <img src="./ImagemTeste.jpg" class="quizzImg">
                     <div class=" tituloQuizz">Este é o titulo do quizz ksjdbwk sjdbwdo sodbhowhdo</div>
                 </div>    
-                <div class="quizz" onclick="iniciarQuizz()">
+                <div class="quizz" onclick="iniciarQuizz(this)">
                     <img src="./ImagemTeste.jpg" class="quizzImg">
                     <div class=" tituloQuizz">Este é o titulo do quizz</div>
                 </div>   
-                <div class="quizz" onclick="iniciarQuizz()">
+                <div class="quizz" onclick="iniciarQuizz(this)">
                     <img src="./ImagemTeste.jpg" class="quizzImg">
                     <div class=" tituloQuizz">Este é o titulo do quizz</div>
                 </div>   
-                <div class="quizz" onclick="iniciarQuizz()">
+                <div class="quizz" onclick="iniciarQuizz(this)">
                     <img src="./ImagemTeste.jpg" class="quizzImg">
                     <div class=" tituloQuizz">Este é o titulo do quizz</div>
                 </div>
@@ -185,7 +185,8 @@
 
     </div>
 
-        <script src="js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 
 </html>
