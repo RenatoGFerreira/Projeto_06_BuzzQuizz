@@ -11,7 +11,7 @@
     <title>Projeto_06_BuzzQuizz</title>
 </head>
 
-<body onload="obterQuizzes()">
+<body onload="obterQuizzes(), mostrarMeusQuizzes()">
     <header class="topo">
         <!--CABECALHO DO BUZZQUIZ **********-->
         <div class="logo">
@@ -21,12 +21,22 @@
         </div>
     </header> <!-- /CABECALHO DO BUZZQUIZ **********-->
     <main class="conteudo">
+
         <section class="criar"><!-- CAIXA DE CRIAÇÃO DE QUIZZ -->
             <div class="tituloSemQuizz">Você não criou nenhum quizz ainda :(</div>
             <button class="criarQuizz" onclick="criarQuizz()">Criar Quizz</button>
         </section><!-- /CAIXA DE CRIAÇÃO DE QUIZZ -->
+
+        <section class="criado escondido"><!--CAIXA DE CRIAÇÃO DE QUIZZ COM QUIZZ-->
+            <div class="alinhar-itens">
+                <span class="titulo2">Seus Quizzes</span>
+                <ion-icon class="iconx" name="add-circle"></ion-icon>
+            </div>
+
+        </section><!--/CAIXA DE CRIAÇÃO DE QUIZZ COM QUIZZ-->
+
         <section class="todosQuizzes"><!-- CAIXA COM OS QUIZZES -->
-            <div class="titulo">Todos os Quizzes</div>
+            <span class="titulo">Todos os Quizzes</span>
             <div class="quizzes">
                 <div class="quizz" onclick="iniciarQuizz(this)">
                     <img src="./ImagemTeste.jpg" class="quizzImg">
@@ -161,7 +171,7 @@
         <button class="criar4botaovoltar">Voltar para Home</button>
 
     </div>
-
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./js/script.js"></script>
 </body>

@@ -58,6 +58,23 @@ main {
     border-radius: 5px;
     font-size: 20px;
 }
+.criado {
+    width: 1051px;
+    height: 181px;
+    display: flex;
+    flex-direction: row;
+    justify-content: left; 
+}
+.alinhar-itens{
+    height: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.iconx{
+    color: red;
+    font-size: 31px;
+}
 
 .criarQuizz {
     width: 151px;
@@ -89,6 +106,14 @@ main {
     height: 23px;
     font-size: 20px;
     font-weight: 700;
+}
+.titulo2{
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+    margin-right: 15px;
+    padding: 0;
+    display: block;
 }
 
 .quizzes {
@@ -391,5 +416,6 @@ main {
 /* FORMATAÇÃO PARA MOBILE ********** */
 
 @media screen and (max-width: 1100px) {
+
     
 }
