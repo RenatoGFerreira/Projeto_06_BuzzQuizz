@@ -8,6 +8,8 @@ let objetoQuizz ={
     levels: [{title: 'Título do nível 1', image: 'https://http.cat/411.jpg', text: 'Descrição do nível 1', minValue: 0}]
 }
 
+
+
 function mostrarMeusQuizzes(){
     let sectionCriar = document.querySelector('.criar')
     let sectionCriado = document.querySelector('.criado')
@@ -24,7 +26,15 @@ function mostrarMeusQuizzes(){
 
 
 function randomizarRespostas () {
-    let respostas = document.querySelector(".opcoes"); // A FAZER
+    /* let respostas = document.querySelector(".opcoes");
+    
+    respostas.forEach(resposta => {
+        let randomPos = Math.floor(Math.random() * qtdRespostas);
+        resposta.style.order = randomPos;
+    }); */
+
+    return Math.random() -0.5;
+
 }
 
 function obterQuizzes () {
@@ -72,6 +82,9 @@ function renderizarQuizzSelecionado (response) {
     quizzImg = response.data.image;
     
     for (let i = 0; i< perguntasArr.length; i++) {
+
+        perguntasArr[i].answers.sort(randomizarRespostas)
+
         for (let j = 0; j < perguntasArr[i].answers.length; j++) {
 
             paginaQuizzRespostas += 
