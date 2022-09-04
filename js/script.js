@@ -1,4 +1,5 @@
 let meusQuizzes = []
+let quizzId
 
 let objetoQuizz ={ 
     id: 11836, 
@@ -26,12 +27,6 @@ function mostrarMeusQuizzes(){
 
 
 function randomizarRespostas () {
-    /* let respostas = document.querySelector(".opcoes");
-    
-    respostas.forEach(resposta => {
-        let randomPos = Math.floor(Math.random() * qtdRespostas);
-        resposta.style.order = randomPos;
-    }); */
 
     return Math.random() -0.5;
 
@@ -39,8 +34,9 @@ function randomizarRespostas () {
 
 function obterQuizzes () {
     const promise = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes');
+
+    promise.then(renderizarQuizzes);
     
-    promise.then(renderizarQuizzes); 
 }
 
 function renderizarQuizzes (response) {
@@ -156,53 +152,6 @@ function selecionaResposta(divSelecionado){
             respostasArr[i].classList.add("opcao-outros");
         }
     }
-
-  /*   respostasArr.forEach(resposta => { resposta.classList.add("opcao-outros");
-        
-    }); */
-
- /*    let item1 = document.querySelector(".item1")
-    let item2 = document.querySelector(".item2")
-    let item3 = document.querySelector(".item3")
-    let item4 = document.querySelector(".item4")
-
-    if(divSelecionado === item1){
-        item1.classList.add('color-green')
-        item2.classList.add('opcao-outros')
-        item2.onclick = ''
-        item3.classList.add('opcao-outros')
-        item3.onclick = ''
-        item4.classList.add('opcao-outros')
-        item4.onclick = ''
-    }else if(divSelecionado === item2){
-        item1.classList.add('opcao-outros')
-        item1.onclick = ''
-        item2.classList.add('color-green')
-        item3.classList.add('opcao-outros')
-        item3.onclick = ''
-        item4.classList.add('opcao-outros')
-        item4.onclick = ''
-
-    }else if(divSelecionado === item3){
-        item1.classList.add('opcao-outros')
-        item1.onclick = ''
-        item2.classList.add('opcao-outros')
-        item2.onclick = ''
-        item3.classList.add('color-green')
-        item4.classList.add('opcao-outros')
-        item4.onclick = ''
-    }else{
-        item1.classList.add('opcao-outros')
-        item1.onclick = ''
-        item2.classList.add('opcao-outros')
-        item2.onclick = ''
-        item3.classList.add('opcao-outros')
-        item3.onclick = ''
-        item4.classList.add('color-green')
-    }
-    
-    console.log(item3)
- */
 }
 
 function criarQuizz(){
@@ -213,3 +162,141 @@ function criarQuizz(){
     objetoMain.classList.toggle('escondido')
 
 }
+
+
+function prosseguircriarperguntas(){
+    let tituloquizzcriado = document.querySelector(".criar1tituloquizz").value;   
+    console.log(tituloquizzcriado);
+
+    let urltituloquizzcriado = document.querySelector(".criar1urlquizz").value;   
+    console.log(urltituloquizzcriado);
+
+    let quantidadeperguntasquizzcriado = document.querySelector(".criar1quantidadeperguntasquizz").value;
+    console.log(quantidadeperguntasquizzcriado);
+
+    let quantidadeniveisquizzcriado = document.querySelector(".criar1quantidadeniveisquizz").value;
+    console.log (quantidadeniveisquizzcriado);
+
+    if(tituloquizzcriado.length< 20 || tituloquizzcriado.length>65 || urltituloquizzcriado.includes('http') === false || quantidadeperguntasquizzcriado <3 || quantidadeniveisquizzcriado <2){
+        let campocriarquizz = document.querySelector(".criar1infosquizz");
+        campocriarquizz.innerHTML =`
+        <input type="text" class="criar1tituloquizz inputcriar1" placeholder="Título do seu quizz">
+        <div class="msgerro">O título do quizz deve ter entre 20 e 65 caracteres</div>
+        <input type="text" class="criar1urlquizz inputcriar1" placeholder="URL da imagem do seu quizz">
+        <div class="msgerro">O valor informado não é uma URL válida. </div>
+        <input type="text" class="criar1quantidadeperguntasquizz inputcriar1"
+            placeholder="Quantidade de perguntas do seu quizz">
+            <div class="msgerro">O quizz deve ter no mínimo 3 perguntas.</div>
+        <input type="text" class="criar1quantidadeniveisquizz inputcriar1"
+            placeholder="Quantidade de niveis do seu quizz">
+            <div class="msgerro">O quizz deve ter no mínimo 2 níveis.</div>
+    </div>`;
+
+    }
+    else{
+        let criar1 = document.querySelector(".criar1");
+        criar1.classList.add("escondido");
+        let criar2 = document.querySelector(".criar2");
+        criar2.classList.remove("escondido");
+        renderizacriarperguntas(quantidadeperguntasquizzcriado);
+
+
+    }
+}
+function renderizacriarperguntas(quantidadeperguntas){
+    for(i=1; i<= quantidadeperguntas; i++){
+        let campoperguntas = document.querySelector(".criar2");
+        campoperguntas.innerHTML += `<div class="criar2perguntas pergunta${i}">
+        <div class="textopergunta${i}">
+            <p> <strong>Pergunta ${i}</strong></p>
+        </div>
+        <img src="iconeabrir.svg" class="iconeabrir iconepergunta${i}" onclick="abreperguntas(this)"></img>           
+        
+    </div>`;
+    if(i==quantidadeperguntas){
+        campoperguntas.innerHTML += `<button class="criar2botao" onclick="prosseguircriarniveis()">Prosseguir para criar niveis</button>`
+    }
+    }
+}
+function abreperguntas(pergunta){
+    let classepergunta = pergunta.parentNode.classList;
+    console.log(classepergunta[1])
+    console.log(pergunta.parentNode.classList)
+    let caixapergunta =pergunta.parentNode;
+    console.log(caixapergunta);
+    pergunta.classList.add("escondido");
+    caixapergunta.innerHTML += `<img src="iconeabrir.svg" class="iconeabrir icone${classepergunta[1]} escondido"></img>
+    <input type="text" class="inputcriar2 inputexto${classepergunta[1]}" placeholder="Texto da pergunta">
+    <input type="text" class="inputcriar2 inputcor${classepergunta[1]}" placeholder="Cor de fundo da pergunta">
+
+    <div class="respostacorreta">
+        <p> <strong>Resposta correta</strong></p>
+    </div>
+    <input type="text" class="inputcriar2 inputrespostacorreta${classepergunta[1]}" placeholder="Resposta correta">
+    <input type="text" class="inputcriar2 inputurlrespostacorreta${classepergunta[1]}" placeholder="URL da imagem">
+
+    <div class="repostasincorretas${classepergunta[1]}">
+        <p> <strong>Respostas incorretas</strong></p>
+        <input type="text" class="inputcriar2 inputrespostaincorreta1${classepergunta[1]}" placeholder="Resposta Incorreta 1">
+        <input type="text" class="inputcriar2 inputurlimagemincorreta1${classepergunta[1]}" placeholder="URL da imagem 1">
+        <input type="text" class="inputcriar2 inputrespostaincorreta2${classepergunta[1]}" placeholder="Resposta Incorreta 2">
+        <input type="text" class="inputcriar2 inputurlimagemincorreta2${classepergunta[1]}" placeholder="URL da imagem 2">
+        <input type="text" class="inputcriar2 inputrespostaincorreta3${classepergunta[1]}" placeholder="Resposta Incorreta 3">
+        <input type="text" class="inputcriar2 inputurlimagemincorreta3${classepergunta[1]}" placeholder="URL da imagem 3">
+    </div>`
+
+}
+let questions;
+let numeroperguntas;
+function prosseguircriarniveis(){
+    questions = [];
+    let numeroperguntas = document.querySelector(".criar1quantidadeperguntasquizz").value;
+    for(i=1; i<= numeroperguntas; i++){
+        let a = {
+            title: "",
+            color: "",
+            answers: [
+                {
+                    text: "",
+                    image: "",
+                    isCorrectAnswer: true
+                },
+                {
+                    text: "",
+                    image: "",
+                    isCorrectAnswer: false
+                }
+            ]      
+        }
+        
+    }
+
+function criarQuizz(){
+    const objetoCriarGame = document.querySelector('.criar1')
+    const objetoMain = document.querySelector('.conteudo')
+
+    objetoCriarGame.classList.toggle('escondido')
+    objetoMain.classList.toggle('escondido')
+
+}
+function abrecriar4(){
+    let criar3 = document.querySelector(".criar3");
+    criar3.classList.add("escondido");
+    let criar4 = document.querySelector(".criar4");
+    criar4.classList.remove("escondido");
+    let img = document.querySelector(".criar1urlquizz").value;
+    let titulo = document.querySelector(".criar1tituloquizz").value;
+    
+
+    let criarfim = document.querySelector(".criar4");
+    criarfim.innerHTML = `<div class="criar4titulo"><strong>Seu quizz está pronto</strong></div>
+    <div class="divimagemcriar4">
+        <img src="${img}" class="criar4imagem">
+        <h1>${titulo}</h1>
+
+
+    </div>
+    <button class="criar4botao">Acessar Quizz</button>
+    <button class="criar4botaovoltar">Voltar para Home</button>`
+
+}}
