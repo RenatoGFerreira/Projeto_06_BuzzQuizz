@@ -1,6 +1,37 @@
-let quizzId
+let meusQuizzes = []
+
+let objetoQuizz ={ 
+    id: 11836, 
+    title: 'Título do quizz', 
+    image: 'https://http.cat/411.jpg', 
+    questions: [{title: 'Título da pergunta 1', color: '#123456', answers: [{text: 'pppppp', image: 'https://i.pinimg.com/736x/98/35/99/ec810.jpg', isCorrectAnswer: true}]}], 
+    levels: [{title: 'Título do nível 1', image: 'https://http.cat/411.jpg', text: 'Descrição do nível 1', minValue: 0}]
+}
+
+
+
+function mostrarMeusQuizzes(){
+    let sectionCriar = document.querySelector('.criar')
+    let sectionCriado = document.querySelector('.criado')
+
+    if(meusQuizzes.length === 0){
+        sectionCriar.classList.remove('escondido')
+        sectionCriado.classList.add('escondido')
+    }else{
+        sectionCriar.classList.add('escondido')
+        sectionCriado.classList.remove('escondido')
+    }
+}
+
+
 
 function randomizarRespostas () {
+    /* let respostas = document.querySelector(".opcoes");
+    
+    respostas.forEach(resposta => {
+        let randomPos = Math.floor(Math.random() * qtdRespostas);
+        resposta.style.order = randomPos;
+    }); */
 
     return Math.random() -0.5;
 
@@ -8,9 +39,8 @@ function randomizarRespostas () {
 
 function obterQuizzes () {
     const promise = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes');
-
-    promise.then(renderizarQuizzes);
     
+    promise.then(renderizarQuizzes); 
 }
 
 function renderizarQuizzes (response) {
@@ -183,4 +213,3 @@ function criarQuizz(){
     objetoMain.classList.toggle('escondido')
 
 }
-
