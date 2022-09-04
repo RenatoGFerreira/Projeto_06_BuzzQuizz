@@ -235,6 +235,27 @@ main {
     cursor: pointer;
 }
 
+.reiniciar {
+    width: 260px;
+    height: 52px;
+    border-radius: 15px;
+    background-color: #EC362D;
+    color: white;
+    font-size: 21px;
+    margin-top: 57px;
+    border: none;
+    cursor: pointer;
+}
+
+.retornar {
+    background-color: inherit;
+    border: none;
+    font-size: 21px;
+    color: #818181;
+    margin: 20px;
+    cursor: pointer;
+}
+
 .opcao-outros{
     box-sizing: border-box;
     filter: saturate(0);

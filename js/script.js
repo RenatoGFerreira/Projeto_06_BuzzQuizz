@@ -60,11 +60,12 @@ function renderizarQuizzes (response) {
     }
 }
 
-function iniciarQuizz (elemento) {
+function iniciarQuizz (elementoID) {
+    quizzId = elementoID;
     const objetoMain = document.querySelector('.quizzes')
-    objetoMain.classList.toggle('escondido')
+    objetoMain.classList.add('escondido')
 
-    const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${elemento}`)
+    const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${elementoID}`)
 
     promise.then(renderizarQuizzSelecionado)
 
@@ -75,21 +76,21 @@ function renderizarQuizzSelecionado (response) {
 
     const paginaQuizz = document.querySelector('.paginaQuizz');
     paginaQuizz.innerHTML = '';
-    let paginaQuizzRespostas = ''
-    paginaQuizz.classList.toggle('hidden');
+    let paginaQuizzRespostas = '';
+    paginaQuizz.classList.remove('hidden');
 
     perguntasArr = response.data.questions;
     quizzImg = response.data.image;
     
     for (let i = 0; i< perguntasArr.length; i++) {
 
-        perguntasArr[i].answers.sort(randomizarRespostas)
+        perguntasArr[i].answers.sort(randomizarRespostas);
 
         for (let j = 0; j < perguntasArr[i].answers.length; j++) {
 
             paginaQuizzRespostas += 
             `<div class="opcao item1" onclick="selecionaResposta(this)">
-                <img class="opcaoImg" src="${perguntasArr[i].answers[j].img}">
+                <img class="opcaoImg" src="./${perguntasArr[i].answers[j].img}">
                 ${perguntasArr[i].answers[j].text}
             </div>`
         }
@@ -109,9 +110,27 @@ function renderizarQuizzSelecionado (response) {
     paginaQuizz.innerHTML = 
 
         `<div class="boxTitulo">
-            <img class="tituloImg" src="${response.data.img}">
+            <img class="tituloImg" src="${response.data.questions.img}">
             <div class="tituloQuizz">${response.data.title}</div>
-        </div>`+paginaQuizz.innerHTML;
+        </div>`+paginaQuizz.innerHTML
+        +
+        `<button class="reiniciar" onclick="reiniciarQuizz()">Reiniciar Quizz</button>
+        <button class="retornar" onclick="retornaHome()">Voltar à home</button>`
+        
+    let header = document.querySelector(".boxTitulo");
+    header.scrollIntoView();
+}
+
+function reiniciarQuizz() {
+    iniciarQuizz(quizzId);
+}
+
+function retornaHome () {
+    const paginaQuizz = document.querySelector('.paginaQuizz');
+    paginaQuizz.innerHTML = '';
+
+    const objetoMain = document.querySelector('.quizzes')
+    objetoMain.classList.remove('escondido')
 
 }
 
