@@ -8,8 +8,6 @@ let objetoQuizz ={
     levels: [{title: 'Título do nível 1', image: 'https://http.cat/411.jpg', text: 'Descrição do nível 1', minValue: 0}]
 }
 
-
-
 function mostrarMeusQuizzes(){
     let sectionCriar = document.querySelector('.criar')
     let sectionCriado = document.querySelector('.criado')
