@@ -87,8 +87,8 @@ function renderizarQuizzSelecionado (response) {
         for (let j = 0; j < perguntasArr[i].answers.length; j++) {
 
             paginaQuizzRespostas += 
-            `<div class="opcao item1" onclick="selecionaResposta(this)">
-                <img class="opcaoImg" src="./${perguntasArr[i].answers[j].img}">
+            `<div class="opcao ${perguntasArr[i].answers[j].isCorrectAnswer}" onclick="selecionaResposta(this)">
+                <img class="opcaoImg" src="${perguntasArr[i].answers[j].img}">
                 ${perguntasArr[i].answers[j].text}
             </div>`
         }
@@ -135,7 +135,31 @@ function retornaHome () {
 
 function selecionaResposta(divSelecionado){
     
-    let item1 = document.querySelector(".item1")
+    if (divSelecionado.classList.contains("true")){
+
+        divSelecionado.classList.toggle('color-green');
+    }else {
+        divSelecionado.classList.toggle("color-red");
+    }
+
+    respostasArr = divSelecionado.parentNode.childNodes
+
+    for (let i=1; i<respostasArr.length-1; i++) {
+        respostasArr[i].removeAttribute("onclick");
+
+        if( (respostasArr[i].classList.contains("color-red")) || (respostasArr[i].classList.contains("color-green")) ) {
+
+            
+        } else {
+            respostasArr[i].classList.add("opcao-outros");
+        }
+    }
+
+  /*   respostasArr.forEach(resposta => { resposta.classList.add("opcao-outros");
+        
+    }); */
+
+ /*    let item1 = document.querySelector(".item1")
     let item2 = document.querySelector(".item2")
     let item3 = document.querySelector(".item3")
     let item4 = document.querySelector(".item4")
@@ -176,7 +200,7 @@ function selecionaResposta(divSelecionado){
     }
     
     console.log(item3)
-
+ */
 }
 
 function criarQuizz(){

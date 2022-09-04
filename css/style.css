@@ -274,6 +274,10 @@ main {
     color: #009C22;
 }
 
+.color-red {
+    color: red;
+}
+
 .hidden {
     visibility: hidden;
 }
