@@ -383,10 +383,12 @@ main {
     margin-bottom:24px;
     
 }
-.inputurlimagemincorreta1pergunta1, .inputurlimagemincorreta2pergunta1, .inputurlimagemincorreta3pergunta1{
-    margin-bottom: 32px;
+.respostacorreta{
+    margin-top: 32px;
+    width: 400px;
 }
-.pergunta1{
+
+.criar2perguntas{
     padding:10px;
     flex-wrap: wrap;
     height: auto;
@@ -398,10 +400,11 @@ main {
     position: absolute;
     right: 10px;
 }
-.nivel1{ 
+.criar3niveis{
     padding: 10px;
     flex-wrap: wrap;
     height: auto;
+    
 }
 .divimagemcriar4{
     height:266px;

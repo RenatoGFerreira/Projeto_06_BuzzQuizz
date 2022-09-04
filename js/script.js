@@ -164,6 +164,8 @@ function criarQuizz(){
 }
 
 
+
+
 function prosseguircriarperguntas(){
     let tituloquizzcriado = document.querySelector(".criar1tituloquizz").value;   
     console.log(tituloquizzcriado);
@@ -269,14 +271,263 @@ function prosseguircriarniveis(){
             ]      
         }
         
+        let pergunta = `.inputextopergunta${i}`;
+        let cor = `.inputcorpergunta${i}`;
+        let respostacorreta = `.inputrespostacorretapergunta${i}`;
+        let urlrespostacorreta = `.inputurlrespostacorretapergunta${i}`;
+        let respostaincorreta1 = `.inputrespostaincorreta1pergunta${i}`;
+        let urlrespostaincorreta1 = `.inputurlimagemincorreta1pergunta${i}`;
+        let respostaincorreta2 = `.inputrespostaincorreta2pergunta${i}`;
+        let urlrespostaincorreta2 = `.inputurlimagemincorreta2pergunta${i}`;
+        let respostaincorreta3 = `.inputrespostaincorreta3pergunta${i}`;
+        let urlrespostaincorreta3 = `.inputurlimagemincorreta3pergunta${i}`;
+        
+
+        a.title = document.querySelector(pergunta).value;
+        console.log(a.title.length);
+        console.log(i);
+        if (a.title.length <20 || a.title===null){             
+            erroperguntas(i);
+            break;
+        }
+        a.color = document.querySelector(cor).value;
+        if (a.color.length !=7 || a.color.includes('#')=== false){
+            erroperguntas(i);
+            break;
+        }
+        a.answers[0].text = document.querySelector(respostacorreta).value;
+        if(a.answers[0].text === ""){
+            erroperguntas(i);
+            break;
+        }
+        a.answers[0].image = document.querySelector(urlrespostacorreta).value;
+        if(a.answers[0].image.includes('http') === false){
+            erroperguntas(i);
+            break;
+        }
+        a.answers[1].text= document.querySelector(respostaincorreta1).value;
+        if (a.answers[1].text === ""){
+            erroperguntas(i);
+            break;
+        }
+        a.answers[1].image = document.querySelector(urlrespostaincorreta1).value;
+        if(a.answers[1].image.includes('http') === false){
+            erroperguntas(i);
+            break;
+        }
+        let incorreta2 = document.querySelector(respostaincorreta2).value;
+        let incorreta3 = document.querySelector(respostaincorreta3).value;
+        if(incorreta2 === ""){}
+        else{ 
+            let b = {
+            text:"",
+            image:"",
+            isCorrectAnswer: false
+            }
+            b.text = document.querySelector(respostaincorreta2).value;
+            b.image = document.querySelector(urlrespostaincorreta2).value;
+            if(b.image.includes('http')===false)
+            {
+                erroperguntas(i);
+                break;
+            }
+            a.answers.push(b);
+
+        }
+        if(incorreta3 === ""){}
+        else{ 
+            let b = {
+            text:"",
+            image:"",
+            isCorrectAnswer: false
+            }
+            b.text = document.querySelector(respostaincorreta3).value;
+            b.image = document.querySelector(urlrespostaincorreta3).value;
+            if(b.image.includes('http')===false)
+            {
+                erroperguntas(i);
+                break;
+            }
+            
+            a.answers.push(b);
+
+        }
+        questions.push(a);
+        
+              
+        
     }
+    console.log(numeroperguntas);
+    if(questions.length == numeroperguntas ){
+        console.log (numeroperguntas);
+        criarniveis();
+    }    
+}
+function erroperguntas(i){
+    
+    let perguntaerro = `.pergunta${i}`;
+    let perguntaerro2 = document.querySelector(perguntaerro);
+    perguntaerro2.innerHTML = `
+    <div class="textopergunta${i}">
+        <p> <strong>Pergunta ${i}</strong></p>
+    </div>
+    <img src="iconeabrir.svg" class="iconeabrir iconepergunta${i} escondido" onclick="abreperguntas(this)">           
+    
+<img src="iconeabrir.svg" class="iconeabrir iconepergunta${i} escondido">
+<input type="text" class="inputcriar2 inputextopergunta${i}" placeholder="Texto da pergunta">
+<div class="msgerro">O texto da pergunta deve ter no mínimo 20 caracteres</div>
+<input type="text" class="inputcriar2 inputcorpergunta${i}" placeholder="Cor de fundo da pergunta">
+<div class="msgerro">A cor deve ser no formato #ABC123</div>
 
-function criarQuizz(){
-    const objetoCriarGame = document.querySelector('.criar1')
-    const objetoMain = document.querySelector('.conteudo')
+<div class="respostacorreta">
+    <p> <strong>Resposta correta</strong></p>
+</div>
+<input type="text" class="inputcriar2 inputrespostacorretapergunta${i}" placeholder="Resposta correta">
+<div class="msgerro">O texto da resposta correta não pode ser vazio</div>
+<input type="text" class="inputcriar2 inputurlrespostacorretapergunta${i}" placeholder="URL da imagem">
+<div class="msgerro">O URL deve ser no formato: http...</div>
 
-    objetoCriarGame.classList.toggle('escondido')
-    objetoMain.classList.toggle('escondido')
+<div class="repostasincorretaspergunta${i}">
+    <p> <strong>Respostas incorretas</strong></p>
+    <input type="text" class="inputcriar2 inputrespostaincorreta1pergunta${i}" placeholder="Resposta Incorreta 1">
+    <div class="msgerro">A pergunta deve ter pelo menos uma resposta incorreta</div>
+    <input type="text" class="inputcriar2 inputurlimagemincorreta1pergunta${i}" placeholder="URL da imagem 1">
+    <div class="msgerro">O URL deve ser no formato: http...</div>
+    <input type="text" class="inputcriar2 inputrespostaincorreta2pergunta${i}" placeholder="Resposta Incorreta 2">
+    <input type="text" class="inputcriar2 inputurlimagemincorreta2pergunta${i}" placeholder="URL da imagem 2">
+    <input type="text" class="inputcriar2 inputrespostaincorreta3pergunta${i}" placeholder="Resposta Incorreta 3">
+    <input type="text" class="inputcriar2 inputurlimagemincorreta3pergunta${i}" placeholder="URL da imagem 3">
+</div></div>`;
+questions = [];
+
+}
+function abreniveis(nivel){
+    console.log(nivel);
+    console.log(nivel.parentNode.classList);
+    let classenivel = nivel.parentNode.classList;
+    console.log(classenivel[1])
+    let caixanivel =nivel.parentNode;
+    console.log(caixanivel);
+    nivel.classList.add("escondido");
+    caixanivel.innerHTML += `
+<img src="iconeabrir.svg" class="iconeabrir icone${classenivel[1]} escondido"></img>
+<input type="text" class="inputcriar3 inputtitulo${classenivel[1]}" placeholder="Título do nível">
+<input type="text" class="inputcriar3 inputporcentagem${classenivel[1]}" placeholder="% de acerto mínima">
+<input type="text" class="inputcriar3 inputurl${classenivel[1]}" placeholder="URL da imagem do nível">
+<input type="text" class="inputcriar3 inputdescricao${classenivel[1]}" placeholder="Descrição do nível">`
+
+}
+function criarniveis(){
+    let criar3 = document.querySelector(".criar3");
+    criar3.classList.remove("escondido");
+    let criar2 = document.querySelector(".criar2");
+    criar2.classList.add("escondido");
+    let quantidadeniveisquizzcriado = document.querySelector(".criar1quantidadeniveisquizz").value;
+    for (i=1; i<= quantidadeniveisquizzcriado; i++){
+        let criar3 = document.querySelector(".criar3");
+        criar3.innerHTML += `<div class="criar3niveis nivel${i}">
+        <div class="textonivel${i}">
+            <p> <strong>Nivel ${i}</strong></p>
+        </div>
+        <img src="iconeabrir.svg" class="iconeabrir iconenivel${i}" onclick="abreniveis(this)"></img>
+    </div>`;
+    if (i == quantidadeniveisquizzcriado){
+        criar3.innerHTML += `<button class="criar3botao" onclick="finalizarquizz()">Finalizar Quizz</button>`
+    }
+    }
+    
+}
+function abrecriarquizz(){
+    let criar1= document.querySelector(".criar1");
+    criar1.classList.remove("escondido");
+}
+let niveis;
+let percentagem0;
+function finalizarquizz(){
+    let quantidadeniveisquizzcriado = document.querySelector(".criar1quantidadeniveisquizz").value;
+    niveis = [];
+    for(i=1; i<=quantidadeniveisquizzcriado; i++){
+        let a = {
+            title: "",
+            image: "",
+            text: "",
+            minValue: ""
+        };
+        let titulo = `.inputtitulonivel${i}`;
+        let porcentagem = `.inputporcentagemnivel${i}`;
+        let url = `.inputurlnivel${i}`;
+        let descricao = `.inputdescricaonivel${i}`;
+
+        a.title = document.querySelector(titulo).value;
+        if(a.title.length <= 10){
+            erroniveis(i);
+            break;
+        }
+        a.image = document.querySelector(url).value;
+        if(a.image.includes('http') === false ){
+            erroniveis(i);
+            break;
+        }
+        a.text = document.querySelector(descricao).value;
+        if (a.text.length < 30){
+            erroniveis(i);
+            break;
+        }
+
+        a.minValue = document.querySelector(porcentagem).value;
+        if(a.minValue < 0 || a.minValue > 100){
+            erroniveis(i);
+            break;
+        }
+        niveis.push(a);
+    }
+    for (i=0; i< quantidadeniveisquizzcriado; i++){
+        if(niveis[i].minValue == 0){
+            porcentagem0 = true;
+            break;
+        }
+        else{
+            porcentagem0 = false;
+        }
+    }
+    if(porcentagem0 === false){
+        erroniveis(1);
+    }
+    else{ 
+        let tituloquizzcriado = document.querySelector(".criar1tituloquizz").value;
+        let urltituloquizzcriado = document.querySelector(".criar1urlquizz").value;
+
+
+        let quizz = {
+            title: "",
+            image: "",
+            questions: "",
+            levels: ""
+        }
+        quizz.title = tituloquizzcriado;
+        quizz.image = urltituloquizzcriado;
+        quizz.questions = questions;
+        quizz.levels = niveis;
+        console.log(quizz);
+        abrecriar4();
+    }
+}
+function erroniveis(i){
+    let nivelerro = `.nivel${i}`;
+    let nivelerro2 = document.querySelector(nivelerro);
+    nivelerro2.innerHTML =`<div class="textonivel${i}">
+    <p> <strong>Nivel ${i}</strong></p>
+</div>
+<img src="iconeabrir.svg" class="iconeabrir iconenivel${i} escondido"></img>
+<input type="text" class="inputcriar3 inputtitulonivel${i}" placeholder="Título do nível">
+<div class="msgerro">O título do nivel deve ter mais de 10 caracteres</div>
+<input type="text" class="inputcriar3 inputporcentagemnivel${i}" placeholder="% de acerto mínima">
+<div class="msgerro">A porcentagem deve ser um número entre 0 e 100, com pelo menos um nivel partindo de 0</div>
+<input type="text" class="inputcriar3 inputurlnivel${i}" placeholder="URL da imagem do nível">
+<div class="msgerro">A URL deve ser no formato http...</div>
+<input type="text" class="inputcriar3 inputdescricaonivel${i}" placeholder="Descrição do nível">
+<div class="msgerro">A descrição do nível deve ter pelo menos 30 caracteres</div>`
+
 
 }
 function abrecriar4(){
@@ -299,4 +550,4 @@ function abrecriar4(){
     <button class="criar4botao">Acessar Quizz</button>
     <button class="criar4botaovoltar">Voltar para Home</button>`
 
-}}
+}
