@@ -57,7 +57,7 @@ function renderizarmeusQuizzes (response) {
     const quizzCard = document.querySelector('.criado');
             quizzCard.innerHTML +=
 
-        `<div class="quizz" onclick="iniciarQuizz(this.id)" id="${response.data.id}">
+        `<div class="quizz" onclick="iniciarQuizz(this.id)" data-identifier="quizz-card" id="${response.data.id}">
             <img src="${response.data.image}" class="quizzImg">
             <div class=" tituloQuizz">${response.data.title}</div>
             <div class="caixaicones"> <ion-icon class="editicon" name="create-outline" onclick="editaquizz(${response.data.id})"></ion-icon>
@@ -84,11 +84,7 @@ function deletaquizz(id){
             let promise= axios.delete(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`, { headers } )
             promise.then(deletebemsucedido);
             
-            }
-        
-            
-
-            
+            }  
 
         }
     
@@ -109,18 +105,25 @@ function deletebemsucedido(){
 
 //}
 
-
 function randomizarRespostas () {
 
     return Math.random() -0.5;
 
 }
 
+function loading () {
+    let loadPage = document.querySelector('.loading')
+    loadPage.classList.toggle('escondido')
+    loadPage.scrollIntoView()
+}
+
 function obterQuizzes () {
+
+    loading();
     const promise = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes');
 
     promise.then(renderizarQuizzes);
-    
+
 }
 
 function renderizarQuizzes (response) {
@@ -135,11 +138,12 @@ function renderizarQuizzes (response) {
 
         quizzCard.innerHTML +=
 
-        `<div class="quizz" onclick="iniciarQuizz(this.id)" id="${quizzesArr[i].id}">
+        `<div class="quizz" onclick="iniciarQuizz(this.id)" data-identifier="quizz-card" id="${quizzesArr[i].id}">
             <img src="${quizzesArr[i].image}" class="quizzImg">
             <div class=" tituloQuizz">${quizzesArr[i].title}</div>
         </div>`
     }
+    loading();
 }
 
 function iniciarQuizz (elementoID) {
@@ -149,6 +153,7 @@ function iniciarQuizz (elementoID) {
 
     const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${elementoID}`);
 
+    loading();
     promise.then(renderizarQuizzSelecionado)
 
 }
@@ -170,7 +175,7 @@ function renderizarQuizzSelecionado (response) {
         for (let j = 0; j < perguntasArr[i].answers.length; j++) {
 
             paginaQuizzRespostas += 
-            `<div class="opcao ${perguntasArr[i].answers[j].isCorrectAnswer}" onclick="selecionaResposta(this)">
+            `<div class="opcao  ${perguntasArr[i].answers[j].isCorrectAnswer}" data-identifier="answer" onclick="selecionaResposta(this)">
                 <img class="opcaoImg" src="${perguntasArr[i].answers[j].img}">
                 ${perguntasArr[i].answers[j].text}
             </div>`
@@ -179,7 +184,7 @@ function renderizarQuizzSelecionado (response) {
         paginaQuizz.innerHTML += 
         
         `<div class="boxPerguntas">
-        <div class="pergunta" style="background-color:${perguntasArr[i].color}">${perguntasArr[i].title}</div>
+        <div class="pergunta" data-identifier="question" style="background-color:${perguntasArr[i].color}">${perguntasArr[i].title}</div>
             <div class="opcoes">
                 ${paginaQuizzRespostas}
             </div>
@@ -202,11 +207,14 @@ function renderizarQuizzSelecionado (response) {
         
     let header = document.querySelector(".boxTitulo");
 
+    loading();
     header.scrollIntoView();
 }
 
 function reiniciarQuizz() {
     iniciarQuizz(quizzId);
+    numAcertos = 0;
+    numErros = 0;
 }
 
 function retornaHome () {
@@ -217,6 +225,8 @@ function retornaHome () {
     objetoMain.classList.remove('escondido')
     document.location.reload();
 
+    numAcertos = 0;
+    numErros = 0;
 }
 
 
@@ -230,7 +240,6 @@ function selecionaResposta(divSelecionado){
 
     const pergunta = divSelecionado.parentNode
     pergunta.classList.add('respondido')
-
     const respostasArr = divSelecionado.parentNode.childNodes
 
     for (let i=1; i<respostasArr.length-1; i++) {
@@ -270,14 +279,13 @@ function renderizarResultado () {
     const resultado = document.querySelector('.footer')
     const calculaAcertos = Math.round((numAcertos/(numAcertos+numErros))*100)
 
-
     for (let i = 0; i<QuizzObject.levels.length; i++) {
         
         if ( ((calculaAcertos>=QuizzObject.levels[i].minValue) && (calculaAcertos<QuizzObject.levels[i+1])) || (calculaAcertos>=QuizzObject.levels[i].minValue && calculaAcertos<= 100)){
 
             resultado.innerHTML = 
     
-            `<div class="boxResultado">
+            `<div class="boxResultado" data-identifier="quizz-result">
                 <div class="resultTitle"> ${calculaAcertos}% de acertos: ${QuizzObject.levels[i].title}</div>
                 <img class="resultImg" src="${QuizzObject.levels[i].image}"> 
                 <div class="resultText">${QuizzObject.levels[i].text}</div>

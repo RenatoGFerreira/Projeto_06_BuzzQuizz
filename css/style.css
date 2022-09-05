@@ -263,7 +263,7 @@ main {
     font-size: 20px;
     font-weight: 700;
     cursor: pointer;
-    word-break: break-all;
+    word-break:normal;
 }
 
 .footer {
@@ -512,13 +512,33 @@ main {
     border-radius: 5px;
 }
 
+<<<<<<< HEAD
+=======
+.loading{
+    width: 100vw;
+    height: 100vh;
+    justify-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    scroll-behavior: auto;
+    position: fixed;
+    z-index: 3;
+    background-color: #E5E5E5;
+}
+
+>>>>>>> dbf3bf87bbfdfad6e8048e8452dec8b548aecf24
 .escondido{
     display:none;
 }
 
+<<<<<<< HEAD
 .clear{
     clear: both;
 }
+=======
+>>>>>>> dbf3bf87bbfdfad6e8048e8452dec8b548aecf24
 
 /* FORMATAÇÃO PARA MOBILE ********** */
 
