@@ -1,6 +1,5 @@
 let meusQuizzes = []
-let quizzId
-
+let quizzId;
 let objetoQuizz ={ 
     id: 11836, 
     title: 'Título do quizz', 
@@ -9,19 +8,34 @@ let objetoQuizz ={
     levels: [{title: 'Título do nível 1', image: 'https://http.cat/411.jpg', text: 'Descrição do nível 1', minValue: 0}]
 }
 
+meusQuizzes.push(objetoQuizz)
+
+function myUserQuizz(userId){
+
+    for(let i = 0 ; i < localStorage.length; i++){
+        meusQuizzes.push(localStorage.id[i])
+    }
+
+    let userQuizzLista = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${userId}`)
+    meusQuizzes.push(userQuizzLista)
+}
+
 function mostrarMeusQuizzes(){
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    console.log(localStorage == null)
     let sectionCriar = document.querySelector('.criar')
     let sectionCriado = document.querySelector('.criado')
 
-    if(meusQuizzes.length === 0){
+    if(localStorage.length === 0){
         sectionCriar.classList.remove('escondido')
         sectionCriado.classList.add('escondido')
     }else{
         sectionCriar.classList.add('escondido')
         sectionCriado.classList.remove('escondido')
+        myUserQuizz()
     }
 }
-
 
 
 function randomizarRespostas () {
@@ -38,6 +52,8 @@ function obterQuizzes () {
 }
 
 function renderizarQuizzes (response) {
+
+    console.log(response.data[1].id)
 
     const quizzesArr = response.data;
     const quizzCard = document.querySelector('.quizzes');
@@ -125,7 +141,6 @@ function retornaHome () {
 
     const objetoMain = document.querySelector('.quizzes')
     objetoMain.classList.remove('escondido')
-
 }
 
 
@@ -144,8 +159,7 @@ function selecionaResposta(divSelecionado){
         respostasArr[i].removeAttribute("onclick");
 
         if( (respostasArr[i].classList.contains("color-red")) || (respostasArr[i].classList.contains("color-green")) ) {
-
-            
+   
         } else {
             respostasArr[i].classList.add("opcao-outros");
         }
@@ -158,9 +172,6 @@ function criarQuizz(){
 
     objetoCriarGame.classList.toggle('escondido')
     objetoMain.classList.toggle('escondido')
-
-<<<<<<< HEAD
-=======
 }
 
 
@@ -544,11 +555,9 @@ function abrecriar4(){
     <div class="divimagemcriar4">
         <img src="${img}" class="criar4imagem">
         <h1>${titulo}</h1>
-
-
     </div>
     <button class="criar4botao">Acessar Quizz</button>
     <button class="criar4botaovoltar">Voltar para Home</button>`
-
->>>>>>> 10211e6106d9780c675924024152da7afb3dbcba
 }
+
+

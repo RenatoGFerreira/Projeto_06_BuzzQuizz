@@ -74,6 +74,7 @@ main {
 .iconx{
     color: red;
     font-size: 31px;
+    cursor: pointer;
 }
 
 .criarQuizz {
