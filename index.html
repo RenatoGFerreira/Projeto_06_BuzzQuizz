@@ -27,7 +27,7 @@
 
         <section class="criar"><!-- CAIXA DE CRIAÇÃO DE QUIZZ -->
             <div class="tituloSemQuizz">Você não criou nenhum quizz ainda :(</div>
-            <button class="criarQuizz" onclick="criarQuizz()">Criar Quizz</button>
+            <button class="criarQuizz" data-identifier="create-quizz" onclick="criarQuizz()">Criar Quizz</button>
         </section><!-- /CAIXA DE CRIAÇÃO DE QUIZZ -->
 
         <section class="criado escondido"><!--CAIXA DE CRIAÇÃO DE QUIZZ COM QUIZZ-->
@@ -40,7 +40,7 @@
 
         <section class="todosQuizzes"><!-- CAIXA COM OS QUIZZES -->
             <span class="titulo">Todos os Quizzes</span>
-            <div class="quizzes">
+            <div class="quizzes" data-identifier="general-quizzes">
                 
             </div>
         </section>

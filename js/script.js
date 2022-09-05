@@ -42,7 +42,7 @@ function renderizarmeusQuizzes (response) {
     const quizzCard = document.querySelector('.criado');
             quizzCard.innerHTML +=
 
-        `<div class="quizz" onclick="iniciarQuizz(this.id)" id="${response.data.id}">
+        `<div class="quizz" onclick="iniciarQuizz(this.id)" data-identifier="quizz-card" id="${response.data.id}">
             <img src="${response.data.image}" class="quizzImg">
             <div class=" tituloQuizz">${response.data.title}</div>
             <div class="caixaicones"> <ion-icon class="editicon" name="create-outline" onclick="editaquizz(${response.data.id})"></ion-icon>
@@ -121,7 +121,7 @@ function renderizarQuizzes (response) {
 
         quizzCard.innerHTML +=
 
-        `<div class="quizz" onclick="iniciarQuizz(this.id)" id="${quizzesArr[i].id}">
+        `<div class="quizz" onclick="iniciarQuizz(this.id)" data-identifier="quizz-card" id="${quizzesArr[i].id}">
             <img src="${quizzesArr[i].image}" class="quizzImg">
             <div class=" tituloQuizz">${quizzesArr[i].title}</div>
         </div>`
@@ -158,7 +158,7 @@ function renderizarQuizzSelecionado (response) {
         for (let j = 0; j < perguntasArr[i].answers.length; j++) {
 
             paginaQuizzRespostas += 
-            `<div class="opcao ${perguntasArr[i].answers[j].isCorrectAnswer}" onclick="selecionaResposta(this)">
+            `<div class="opcao  ${perguntasArr[i].answers[j].isCorrectAnswer}" data-identifier="answer" onclick="selecionaResposta(this)">
                 <img class="opcaoImg" src="${perguntasArr[i].answers[j].img}">
                 ${perguntasArr[i].answers[j].text}
             </div>`
@@ -167,7 +167,7 @@ function renderizarQuizzSelecionado (response) {
         paginaQuizz.innerHTML += 
         
         `<div class="boxPerguntas">
-        <div class="pergunta" style="background-color:${perguntasArr[i].color}">${perguntasArr[i].title}</div>
+        <div class="pergunta" data-identifier="question" style="background-color:${perguntasArr[i].color}">${perguntasArr[i].title}</div>
             <div class="opcoes">
                 ${paginaQuizzRespostas}
             </div>
@@ -268,7 +268,7 @@ function renderizarResultado () {
 
             resultado.innerHTML = 
     
-            `<div class="boxResultado">
+            `<div class="boxResultado" data-identifier="quizz-result">
                 <div class="resultTitle"> ${calculaAcertos}% de acertos: ${QuizzObject.levels[i].title}</div>
                 <img class="resultImg" src="${QuizzObject.levels[i].image}"> 
                 <div class="resultText">${QuizzObject.levels[i].text}</div>
