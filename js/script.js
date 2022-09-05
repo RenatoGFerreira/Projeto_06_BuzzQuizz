@@ -1,5 +1,6 @@
 let meusQuizzes = []
-let quizzId
+let quizzId;
+
 
 let objetoQuizz ={ 
     id: 11836, 
@@ -171,7 +172,7 @@ function prosseguircriarperguntas(){
     console.log(tituloquizzcriado);
 
     let urltituloquizzcriado = document.querySelector(".criar1urlquizz").value;   
-    console.log(urltituloquizzcriado);
+    checkUrl(urltituloquizzcriado);
 
     let quantidadeperguntasquizzcriado = document.querySelector(".criar1quantidadeperguntasquizz").value;
     console.log(quantidadeperguntasquizzcriado);
@@ -179,7 +180,7 @@ function prosseguircriarperguntas(){
     let quantidadeniveisquizzcriado = document.querySelector(".criar1quantidadeniveisquizz").value;
     console.log (quantidadeniveisquizzcriado);
 
-    if(tituloquizzcriado.length< 20 || tituloquizzcriado.length>65 || urltituloquizzcriado.includes('http') === false || quantidadeperguntasquizzcriado <3 || quantidadeniveisquizzcriado <2){
+    if(tituloquizzcriado.length< 20 || tituloquizzcriado.length>65 || funciona === false || quantidadeperguntasquizzcriado <3 || quantidadeniveisquizzcriado <2){
         let campocriarquizz = document.querySelector(".criar1infosquizz");
         campocriarquizz.innerHTML =`
         <input type="text" class="criar1tituloquizz inputcriar1" placeholder="Título do seu quizz">
@@ -301,7 +302,8 @@ function prosseguircriarniveis(){
             break;
         }
         a.answers[0].image = document.querySelector(urlrespostacorreta).value;
-        if(a.answers[0].image.includes('http') === false){
+        checkUrl(a.answers[0].image);
+        if(funciona === false){
             erroperguntas(i);
             break;
         }
@@ -311,7 +313,8 @@ function prosseguircriarniveis(){
             break;
         }
         a.answers[1].image = document.querySelector(urlrespostaincorreta1).value;
-        if(a.answers[1].image.includes('http') === false){
+        checkUrl(a.answers[1].image);
+        if(funciona === false){
             erroperguntas(i);
             break;
         }
@@ -326,7 +329,8 @@ function prosseguircriarniveis(){
             }
             b.text = document.querySelector(respostaincorreta2).value;
             b.image = document.querySelector(urlrespostaincorreta2).value;
-            if(b.image.includes('http')===false)
+            checkUrl(b.image);
+            if(funciona ===false)
             {
                 erroperguntas(i);
                 break;
@@ -343,7 +347,8 @@ function prosseguircriarniveis(){
             }
             b.text = document.querySelector(respostaincorreta3).value;
             b.image = document.querySelector(urlrespostaincorreta3).value;
-            if(b.image.includes('http')===false)
+            checkUrl(b.image);
+            if(funciona ===false)
             {
                 erroperguntas(i);
                 break;
@@ -464,7 +469,8 @@ function finalizarquizz(){
             break;
         }
         a.image = document.querySelector(url).value;
-        if(a.image.includes('http') === false ){
+        checkUrl(a.image);
+        if( funciona === false ){
             erroniveis(i);
             break;
         }
@@ -509,7 +515,8 @@ function finalizarquizz(){
         quizz.questions = questions;
         quizz.levels = niveis;
         console.log(quizz);
-        abrecriar4();
+        let promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quizz);
+        promise.then(abrecriar4);
     }
 }
 function erroniveis(i){
@@ -530,7 +537,27 @@ function erroniveis(i){
 
 
 }
-function abrecriar4(){
+function abrecriar4(resposta){
+    console.log(resposta);
+    let a = {
+        id: "",
+        key:""
+    };
+    a.id = resposta.data.id;
+    a.key = resposta.data.key;
+    
+    let buscaquizzes = localStorage.getItem("quizzesusuario");
+    if (buscaquizzes === null){
+        localStorage.setItem("quizzesusuario", "[]" );
+        buscaquizzes = localStorage.getItem("quizzesusuario");
+    }
+    let buscaquizzesarray = JSON.parse(buscaquizzes);
+    buscaquizzesarray.push(a);
+    let arrayatualizado = JSON.stringify(buscaquizzesarray);
+    localStorage.setItem("quizzesusuario", arrayatualizado);
+
+    
+
     let criar3 = document.querySelector(".criar3");
     criar3.classList.add("escondido");
     let criar4 = document.querySelector(".criar4");
@@ -547,7 +574,49 @@ function abrecriar4(){
 
 
     </div>
-    <button class="criar4botao">Acessar Quizz</button>
-    <button class="criar4botaovoltar">Voltar para Home</button>`
+    <button class="criar4botao" onclick="botao4(${resposta.data.id})">Acessar Quizz</button>
+    <button class="criar4botaovoltar" onclick="botaohome()">Voltar para Home</button>`
 
 }
+function botao4(id){
+    let iddoquizz= id;
+    let criar4 = document.querySelector(".criar4");
+    criar4.classList.add("escondido");
+    iniciarQuizz(iddoquizz);
+}
+function botaohome(){
+    document.location.reload();
+}
+function checkUrl(string) {
+    try {
+     let url = new URL(string)
+     funciona = true;
+   } catch(err) {
+       funciona = false;
+   }
+ }
+ function isValidHexaCode(str)
+    {
+        // Regex to check valid hexadecimal color code.
+        let regex = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$";
+ 
+        // Compile the ReGex
+        p = Pattern.compile(regex);
+ 
+        // If the string is empty
+        // return false
+        if (str == null) {
+            return false;
+        }
+ 
+        // Pattern class contains matcher() method
+        // to find matching between given string
+        // and regular expression.
+        let m = p.matcher(str);
+ 
+        // Return if the string
+        // matched the ReGex
+        return m.matches();
+    }
+
+ 
