@@ -512,8 +512,6 @@ main {
     border-radius: 5px;
 }
 
-<<<<<<< HEAD
-=======
 .loading{
     width: 100vw;
     height: 100vh;
@@ -528,17 +526,13 @@ main {
     background-color: #E5E5E5;
 }
 
->>>>>>> dbf3bf87bbfdfad6e8048e8452dec8b548aecf24
 .escondido{
     display:none;
 }
 
-<<<<<<< HEAD
 .clear{
     clear: both;
 }
-=======
->>>>>>> dbf3bf87bbfdfad6e8048e8452dec8b548aecf24
 
 /* FORMATAÇÃO PARA MOBILE ********** */
 
