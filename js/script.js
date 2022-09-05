@@ -14,16 +14,77 @@ let objetoQuizz ={
 function mostrarMeusQuizzes(){
     let sectionCriar = document.querySelector('.criar')
     let sectionCriado = document.querySelector('.criado')
+    let quizzesusuario = localStorage.getItem("quizzesusuario");
+    quizzesusuarioDeserializados = JSON.parse(quizzesusuario);
 
-    if(meusQuizzes.length === 0){
+    if(quizzesusuarioDeserializados.length === 0){
         sectionCriar.classList.remove('escondido')
         sectionCriado.classList.add('escondido')
     }else{
         sectionCriar.classList.add('escondido')
         sectionCriado.classList.remove('escondido')
+        pegarmeusQuizzes(quizzesusuarioDeserializados);
     }
 }
+function pegarmeusQuizzes (quizzesusuarioDeserializados) {
+    console.log(quizzesusuarioDeserializados);
 
+    for (i=0; i< quizzesusuarioDeserializados.length; i++){
+        console.log(quizzesusuarioDeserializados[i].id);
+        let promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${quizzesusuarioDeserializados[i].id}`);
+        promise.then (renderizarmeusQuizzes);
+    }
+    
+}
+function renderizarmeusQuizzes (response) {
+
+    
+    const quizzCard = document.querySelector('.criado');
+            quizzCard.innerHTML +=
+
+        `<div class="quizz" onclick="iniciarQuizz(this.id)" id="${response.data.id}">
+            <img src="${response.data.image}" class="quizzImg">
+            <div class=" tituloQuizz">${response.data.title}</div>
+            <div class="caixaicones"> <ion-icon class="editicon" name="create-outline" onclick="editaquizz(${response.data.id})"></ion-icon>
+            <ion-icon class="deleteicon" name="trash-outline" onclick="deletaquizz(${response.data.id})"></ion-icon> </div>
+            
+        </div>`;
+    }
+
+function deletaquizz(id){
+    let id2 = id;
+    let quizzdeletado = localStorage.getItem("quizzesusuario");
+    let quizzdeletadostring = JSON.parse(quizzdeletado);
+    for (i=0; i<quizzdeletadostring.length;i++){
+        if (quizzdeletadostring[i].id === id2){
+            console.log(quizzdeletadostring[i].id);
+            console.log(id);
+            console.log(quizzdeletadostring[i].key)
+            const headers = {
+                'Secret-Key': quizzdeletadostring[i].key
+            };
+            
+            let promise= axios.delete(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`, { headers } )
+            promise.then(atualizastorage, i);
+            }
+        
+            
+
+            
+
+        }
+    
+    }
+function atualizastorage(i){
+    console.log("até aqui sim");
+    let quizzdeletado = localStorage.getItem("quizzesusuario");
+    quizzdeletadostring = JSON.parse(quizzdeletado);
+    quizzdeletadostring.splice(i);
+    quizzdeletado2 = JSON.stringify(quizzdeletadostring);
+    localStorage.setItem("quizzesusuario", quizzdeletado2);
+    document.location.reload();
+
+}
 
 
 function randomizarRespostas () {
@@ -61,7 +122,7 @@ function iniciarQuizz (elementoID) {
     const objetoMain = document.querySelector('.quizzes')
     objetoMain.classList.add('escondido')
 
-    const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${elementoID}`)
+    const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${elementoID}`);
 
     promise.then(renderizarQuizzSelecionado)
 
@@ -129,6 +190,7 @@ function retornaHome () {
 
     const objetoMain = document.querySelector('.quizzes')
     objetoMain.classList.remove('escondido')
+    document.location.reload();
 
 }
 
@@ -216,7 +278,9 @@ function criarQuizz(){
     const objetoMain = document.querySelector('.conteudo')
 
     objetoCriarGame.classList.toggle('escondido')
-    objetoMain.classList.toggle('escondido')
+    objetoMain.classList.toggle('escondido') 
+    let titulo = document.querySelector(".criar1tituloquizz");
+    titulo.value = "qlqcoisa";
 
 }
 
@@ -638,6 +702,8 @@ function botao4(id){
     let iddoquizz= id;
     let criar4 = document.querySelector(".criar4");
     criar4.classList.add("escondido");
+    const objetoMain = document.querySelector('.conteudo')
+    objetoMain.classList.toggle('escondido'); 
     iniciarQuizz(iddoquizz);
 }
 function botaohome(){
@@ -651,28 +717,6 @@ function checkUrl(string) {
        funciona = false;
    }
  }
- function isValidHexaCode(str)
-    {
-        // Regex to check valid hexadecimal color code.
-        let regex = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$";
  
-        // Compile the ReGex
-        p = Pattern.compile(regex);
- 
-        // If the string is empty
-        // return false
-        if (str == null) {
-            return false;
-        }
- 
-        // Pattern class contains matcher() method
-        // to find matching between given string
-        // and regular expression.
-        let m = p.matcher(str);
- 
-        // Return if the string
-        // matched the ReGex
-        return m.matches();
-    }
 
  
