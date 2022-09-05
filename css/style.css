@@ -484,12 +484,23 @@ main {
     height:266px;
     width:500px;
     border-radius: 5px;
-    
-
 }
+
+.loading{
+    width: 100vw;
+    height: 100vh;
+    justify-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    scroll-behavior: auto;
+}
+
 .escondido{
     display:none;
 }
+
 
 /* FORMATAÇÃO PARA MOBILE ********** */
 

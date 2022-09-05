@@ -24,7 +24,11 @@ function mostrarMeusQuizzes(){
     }
 }
 
-
+function loading () {
+    let loadPage = document.querySelector('.loading')
+    loadPage.classList.toggle('escondido')
+    loadPage.scrollIntoView()
+}
 
 function randomizarRespostas () {
 
@@ -33,10 +37,12 @@ function randomizarRespostas () {
 }
 
 function obterQuizzes () {
+
+    loading();
     const promise = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes');
 
     promise.then(renderizarQuizzes);
-    
+
 }
 
 function renderizarQuizzes (response) {
@@ -54,6 +60,7 @@ function renderizarQuizzes (response) {
             <div class=" tituloQuizz">${quizzesArr[i].title}</div>
         </div>`
     }
+    loading();
 }
 
 function iniciarQuizz (elementoID) {
@@ -63,6 +70,7 @@ function iniciarQuizz (elementoID) {
 
     const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${elementoID}`)
 
+    loading();
     promise.then(renderizarQuizzSelecionado)
 
 }
@@ -116,11 +124,14 @@ function renderizarQuizzSelecionado (response) {
         
     let header = document.querySelector(".boxTitulo");
 
+    loading();
     header.scrollIntoView();
 }
 
 function reiniciarQuizz() {
     iniciarQuizz(quizzId);
+    numAcertos = 0;
+    numErros = 0;
 }
 
 function retornaHome () {
@@ -130,6 +141,8 @@ function retornaHome () {
     const objetoMain = document.querySelector('.quizzes')
     objetoMain.classList.remove('escondido')
 
+    numAcertos = 0;
+    numErros = 0;
 }
 
 
@@ -143,7 +156,6 @@ function selecionaResposta(divSelecionado){
 
     const pergunta = divSelecionado.parentNode
     pergunta.classList.add('respondido')
-
     const respostasArr = divSelecionado.parentNode.childNodes
 
     for (let i=1; i<respostasArr.length-1; i++) {
@@ -182,7 +194,6 @@ function renderizarResultado () {
 
     const resultado = document.querySelector('.footer')
     const calculaAcertos = Math.round((numAcertos/(numAcertos+numErros))*100)
-
 
     for (let i = 0; i<QuizzObject.levels.length; i++) {
         
