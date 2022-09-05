@@ -1,5 +1,8 @@
 let meusQuizzes = []
 let quizzId
+let QuizzObject
+let numAcertos = 0
+let numErros = 0
 
 let objetoQuizz ={ 
     id: 11836, 
@@ -65,11 +68,10 @@ function iniciarQuizz (elementoID) {
 
     promise.then(renderizarQuizzSelecionado)
 
-
 }
 
 function renderizarQuizzSelecionado (response) {
-
+    QuizzObject = response.data;
     const paginaQuizz = document.querySelector('.paginaQuizz');
     paginaQuizz.innerHTML = '';
     let paginaQuizzRespostas = '';
@@ -110,10 +112,13 @@ function renderizarQuizzSelecionado (response) {
             <div class="tituloQuizz">${response.data.title}</div>
         </div>`+paginaQuizz.innerHTML
         +
-        `<button class="reiniciar" onclick="reiniciarQuizz()">Reiniciar Quizz</button>
-        <button class="retornar" onclick="retornaHome()">Voltar à home</button>`
+        `<div class="footer">
+            <button class="reiniciar" onclick="reiniciarQuizz()">Reiniciar Quizz</button>
+            <button class="retornar" onclick="retornaHome()">Voltar à home</button>
+         </div>`
         
     let header = document.querySelector(".boxTitulo");
+
     header.scrollIntoView();
 }
 
@@ -136,21 +141,76 @@ function selecionaResposta(divSelecionado){
     if (divSelecionado.classList.contains("true")){
 
         divSelecionado.classList.toggle('color-green');
+        numAcertos++
     }else {
         divSelecionado.classList.toggle("color-red");
+        numErros++
     }
 
-    respostasArr = divSelecionado.parentNode.childNodes
+    const pergunta = divSelecionado.parentNode
+    pergunta.classList.add('respondido')
+
+    const respostasArr = divSelecionado.parentNode.childNodes
 
     for (let i=1; i<respostasArr.length-1; i++) {
         respostasArr[i].removeAttribute("onclick");
 
         if( (respostasArr[i].classList.contains("color-red")) || (respostasArr[i].classList.contains("color-green")) ) {
-
-            
+   
         } else {
             respostasArr[i].classList.add("opcao-outros");
         }
+    }
+
+    proximo = divSelecionado.parentNode.parentNode.nextSibling;
+    setTimeout(autoScroll, 1700)
+    checarRespostas();
+
+    function autoScroll () {
+        proximo.scrollIntoView()
+    }
+}
+
+function checarRespostas () {
+
+    const opcoes = document.querySelectorAll('.opcoes')
+    opcoesCheck = Array.from(opcoes)
+
+    if ( opcoesCheck.every((opcao) => opcao.classList.contains("respondido"))) {
+
+        renderizarResultado();
+    }
+}
+
+function renderizarResultado () {
+
+    const resultado = document.querySelector('.footer')
+    const calculaAcertos = Math.round((numAcertos/(numAcertos+numErros))*100)
+
+
+    for (let i = 0; i<QuizzObject.levels.length; i++) {
+        
+        if ( ((calculaAcertos>=QuizzObject.levels[i].minValue) && (calculaAcertos<QuizzObject.levels[i+1])) || (calculaAcertos>=QuizzObject.levels[i].minValue && calculaAcertos<= 100)){
+
+            resultado.innerHTML = 
+    
+            `<div class="boxResultado">
+                <div class="pergunta"> ${calculaAcertos}% de acertos: ${QuizzObject.levels[i].title}</div>
+                <img class="resultImg" src="${QuizzObject.levels[i].image}"> 
+                <div class="resultText">${QuizzObject.levels[i].text}</div>
+             </div>
+            <button class="reiniciar" onclick="reiniciarQuizz()">Reiniciar Quizz</button>
+            <button class="retornar" onclick="retornaHome()">Voltar à home</button>`
+
+        }   
+    }
+
+    setTimeout (autoScroll,1700)
+    numAcertos = 0;
+    numErros = 0;
+
+    function autoScroll (){
+        resultado.scrollIntoView();
     }
 }
 

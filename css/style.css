@@ -5,6 +5,7 @@
 html, body{
     font-family: 'Roboto', sans-serif;
     background-color: #E5E5E5;
+    scroll-behavior: smooth;
 }
 
 
@@ -158,6 +159,7 @@ main {
     text-align: center;
     align-items: inherit;
     flex-wrap: wrap;
+    word-break:break-all;
     line-height: 25px;
     font-size: inherit;
     color: white;
@@ -178,6 +180,7 @@ main {
     left: 0;
     z-index: 2;
     background-color: #d3d3d3;
+    scroll-behavior:smooth;
 }
 
 .boxTitulo {
@@ -233,6 +236,35 @@ main {
     font-size: 20px;
     font-weight: 700;
     cursor: pointer;
+    word-break: break-all;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.boxResultado {
+    width: 760px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.resultText {
+    width: 305px;
+    height: 250px;
+    margin: 15px;
+    font-size: 19px;
+    font-weight: 700;
+    word-wrap: break-word;
+    box-sizing: border-box;
+}
+
+.resultImg {
+    width: 364px;
+    height: 273px;
+    margin-top: 15px;
 }
 
 .reiniciar {
