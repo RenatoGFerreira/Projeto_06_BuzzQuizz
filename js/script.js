@@ -52,6 +52,8 @@ function renderizarmeusQuizzes (response) {
     }
 
 function deletaquizz(id){
+    let confirmadelete = confirm("Tem certeza que deseja deletar esse quizz?");
+    if (confirmadelete === true){
     let id2 = id;
     let quizzdeletado = localStorage.getItem("quizzesusuario");
     let quizzdeletadostring = JSON.parse(quizzdeletado);
@@ -65,7 +67,8 @@ function deletaquizz(id){
             };
             
             let promise= axios.delete(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`, { headers } )
-            promise.then(atualizastorage, i);
+            promise.then(deletebemsucedido);
+            
             }
         
             
@@ -74,17 +77,22 @@ function deletaquizz(id){
 
         }
     
-    }
-function atualizastorage(i){
-    console.log("até aqui sim");
-    let quizzdeletado = localStorage.getItem("quizzesusuario");
-    quizzdeletadostring = JSON.parse(quizzdeletado);
-    quizzdeletadostring.splice(i);
-    quizzdeletado2 = JSON.stringify(quizzdeletadostring);
-    localStorage.setItem("quizzesusuario", quizzdeletado2);
+    }}
+function deletebemsucedido(){
+    alert("Quizz deletado com sucesso!");
     document.location.reload();
 
 }
+//function atualizastorage(i){
+//    console.log("até aqui sim");
+  //  let quizzdeletado = localStorage.getItem("quizzesusuario");
+    //quizzdeletadostring = JSON.parse(quizzdeletado);
+  //  quizzdeletadostring.splice(i);
+   // quizzdeletado2 = JSON.stringify(quizzdeletadostring);
+    //localStorage.setItem("quizzesusuario", quizzdeletado2);
+    //document.location.reload();
+
+//}
 
 
 function randomizarRespostas () {
