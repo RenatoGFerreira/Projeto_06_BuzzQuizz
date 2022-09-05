@@ -5,8 +5,8 @@
 html, body{
     font-family: 'Roboto', sans-serif;
     background-color: #E5E5E5;
+    overflow-x: hidden;
     scroll-behavior: smooth;
-    border: 1px solid red;
 }
 
 
@@ -228,7 +228,7 @@ main {
 }
 
 .boxPerguntas {
-    width: 713px;
+    max-width: 713px;
     height: auto;
     display: flex;
     justify-content: center;
@@ -238,7 +238,7 @@ main {
 }
 
 .pergunta {
-    width: 689px;
+    max-width: 689px;
     height: 138px;
     font-size: 23px;
     justify-content: center;
@@ -249,7 +249,7 @@ main {
 }
 
 .opcoes {
-    width: 689px;
+    max-width: 689px;
     height: auto;
     display: flex;
     flex-wrap: wrap;
@@ -258,7 +258,7 @@ main {
 
 .opcao {
     display: flex;
-    width: 330px;
+    max-width: 330px;
     flex-direction: column;
     font-size: 20px;
     font-weight: 700;
@@ -335,8 +335,8 @@ main {
 }
 
 .opcaoImg {
-    width: 330px;
-    height: 175px;
+    max-width: 330px;
+    max-height: 175px;
     margin-top: 20px;
     margin-bottom: 12px;
 }
@@ -364,8 +364,7 @@ main {
     display:flex;
     flex-direction: column;
     align-items: center;
-    overflow-y: scroll;
-    
+    overflow-y: scroll;    
 }
 .msgerro{
     color: #EC362D;
@@ -382,7 +381,7 @@ main {
 }
 .criar1infosquizz{
     height: auto;
-    width:600px;
+    max-width:600px;
     margin-top: 27px;
     background-color:#FFFFFF;
     padding: 18px;
@@ -511,8 +510,6 @@ main {
     height:266px;
     width:500px;
     border-radius: 5px;
-    
-
 }
 
 .escondido{
@@ -554,5 +551,27 @@ main {
     .quizzes{
         width: 100px;
     }
+
+    .criar1infosquizz{
+        width: 100%;
+    }
+    .inputcriar1{
+        width: 100%;
+    }
+
+    .boxPerguntas{
+        width: 100%;
+    }
+
+    .opcoes{
+        padding: 5px auto;
+    }
+
+    .opcao{
+        margin: 2px auto;
+    }
     
+    .opcaoImg{
+        width: 1005;
+    }
 }

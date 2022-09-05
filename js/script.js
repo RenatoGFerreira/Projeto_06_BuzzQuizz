@@ -740,5 +740,3 @@ function checkUrl(string) {
    }
  }
  
-
- 
