@@ -328,6 +328,12 @@ main {
     overflow-y: scroll;
     
 }
+.msgerro{
+    color: #EC362D;
+    font-size: 16px;
+    line-height: 18.75px;
+
+}
 .criar1titulo, .criar2titulo, .criar3titulo, .criar4titulo{
     width: 240px;
     height:27px;
