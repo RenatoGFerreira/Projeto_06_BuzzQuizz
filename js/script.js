@@ -93,7 +93,7 @@ function renderizarQuizzSelecionado (response) {
         paginaQuizz.innerHTML += 
         
         `<div class="boxPerguntas">
-        <div class="pergunta">${perguntasArr[i].title}</div>
+        <div class="pergunta" style="background-color:${perguntasArr[i].color}">${perguntasArr[i].title}</div>
             <div class="opcoes">
                 ${paginaQuizzRespostas}
             </div>
@@ -136,11 +136,8 @@ function retornaHome () {
 function selecionaResposta(divSelecionado){
     
     if (divSelecionado.classList.contains("true")){
-
-        divSelecionado.classList.toggle('color-green');
         numAcertos++
     }else {
-        divSelecionado.classList.toggle("color-red");
         numErros++
     }
 
@@ -152,12 +149,14 @@ function selecionaResposta(divSelecionado){
     for (let i=1; i<respostasArr.length-1; i++) {
         respostasArr[i].removeAttribute("onclick");
 
-        if( (respostasArr[i].classList.contains("color-red")) || (respostasArr[i].classList.contains("color-green")) ) {
-   
+        if( (respostasArr[i].classList.contains("true")) ) { 
+            respostasArr[i].classList.add("color-green", "opcao-outros")
         } else {
-            respostasArr[i].classList.add("opcao-outros");
+            respostasArr[i].classList.add("color-red", "opcao-outros");
         }
     }
+
+    divSelecionado.classList.remove("opcao-outros")
 
     proximo = divSelecionado.parentNode.parentNode.nextSibling;
     setTimeout(autoScroll, 1700)
@@ -192,7 +191,7 @@ function renderizarResultado () {
             resultado.innerHTML = 
     
             `<div class="boxResultado">
-                <div class="pergunta"> ${calculaAcertos}% de acertos: ${QuizzObject.levels[i].title}</div>
+                <div class="resultTitle"> ${calculaAcertos}% de acertos: ${QuizzObject.levels[i].title}</div>
                 <img class="resultImg" src="${QuizzObject.levels[i].image}"> 
                 <div class="resultText">${QuizzObject.levels[i].text}</div>
              </div>
