@@ -6,6 +6,7 @@ html, body{
     font-family: 'Roboto', sans-serif;
     background-color: #E5E5E5;
     scroll-behavior: smooth;
+    border: 1px solid red;
 }
 
 
@@ -34,8 +35,10 @@ html, body{
 }
 
 .conteudo{
-    width: 1051px;
+    width: 100%;
     margin: 40px auto;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -97,7 +100,7 @@ main {
 }
 
 .todosQuizzes {
-    width: 1051px;
+    width: 100%;
     height: auto;
     margin-top: 77px;
     display: flex;
@@ -511,13 +514,45 @@ main {
     
 
 }
+
 .escondido{
     display:none;
+}
+
+.clear{
+    clear: both;
 }
 
 /* FORMATAÇÃO PARA MOBILE ********** */
 
 @media screen and (max-width: 1100px) {
 
+    main{
+        max-width: 1100px;
+    }
+    .criar {
+        max-width: 340px;
+        height: 181px;
+        margin: 40px auto;  
+    }
+
+    .todosQuizzes {
+        width: 100%;
+        height: auto;
+        margin-top: 77px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .titulo{
+        text-align: center;
+
+    }
+
+    .quizzes{
+        width: 100px;
+    }
     
 }
