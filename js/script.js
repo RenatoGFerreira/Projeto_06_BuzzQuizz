@@ -1,5 +1,8 @@
 let meusQuizzes = []
-let quizzId;
+let QuizzObject, quizzId;
+let numAcertos = 0
+let numErros = 0
+
 let objetoQuizz ={ 
     id: 11836, 
     title: 'Título do quizz', 
@@ -26,16 +29,85 @@ function mostrarMeusQuizzes(){
     console.log(localStorage == null)
     let sectionCriar = document.querySelector('.criar')
     let sectionCriado = document.querySelector('.criado')
+    let quizzesusuario = localStorage.getItem("quizzesusuario");
+    quizzesusuarioDeserializados = JSON.parse(quizzesusuario);
 
-    if(localStorage.length === 0){
+    if(quizzesusuarioDeserializados.length === 0){
         sectionCriar.classList.remove('escondido')
         sectionCriado.classList.add('escondido')
     }else{
         sectionCriar.classList.add('escondido')
         sectionCriado.classList.remove('escondido')
-        myUserQuizz()
+        pegarmeusQuizzes(quizzesusuarioDeserializados);
     }
 }
+function pegarmeusQuizzes (quizzesusuarioDeserializados) {
+    console.log(quizzesusuarioDeserializados);
+
+    for (i=0; i< quizzesusuarioDeserializados.length; i++){
+        console.log(quizzesusuarioDeserializados[i].id);
+        let promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${quizzesusuarioDeserializados[i].id}`);
+        promise.then (renderizarmeusQuizzes);
+    }
+    
+}
+function renderizarmeusQuizzes (response) {
+
+    
+    const quizzCard = document.querySelector('.criado');
+            quizzCard.innerHTML +=
+
+        `<div class="quizz" onclick="iniciarQuizz(this.id)" id="${response.data.id}">
+            <img src="${response.data.image}" class="quizzImg">
+            <div class=" tituloQuizz">${response.data.title}</div>
+            <div class="caixaicones"> <ion-icon class="editicon" name="create-outline" onclick="editaquizz(${response.data.id})"></ion-icon>
+            <ion-icon class="deleteicon" name="trash-outline" onclick="deletaquizz(${response.data.id})"></ion-icon> </div>
+            
+        </div>`;
+    }
+
+function deletaquizz(id){
+    let confirmadelete = confirm("Tem certeza que deseja deletar esse quizz?");
+    if (confirmadelete === true){
+    let id2 = id;
+    let quizzdeletado = localStorage.getItem("quizzesusuario");
+    let quizzdeletadostring = JSON.parse(quizzdeletado);
+    for (i=0; i<quizzdeletadostring.length;i++){
+        if (quizzdeletadostring[i].id === id2){
+            console.log(quizzdeletadostring[i].id);
+            console.log(id);
+            console.log(quizzdeletadostring[i].key)
+            const headers = {
+                'Secret-Key': quizzdeletadostring[i].key
+            };
+            
+            let promise= axios.delete(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`, { headers } )
+            promise.then(deletebemsucedido);
+            
+            }
+        
+            
+
+            
+
+        }
+    
+    }}
+function deletebemsucedido(){
+    alert("Quizz deletado com sucesso!");
+    document.location.reload();
+
+}
+//function atualizastorage(i){
+//    console.log("até aqui sim");
+  //  let quizzdeletado = localStorage.getItem("quizzesusuario");
+    //quizzdeletadostring = JSON.parse(quizzdeletado);
+  //  quizzdeletadostring.splice(i);
+   // quizzdeletado2 = JSON.stringify(quizzdeletadostring);
+    //localStorage.setItem("quizzesusuario", quizzdeletado2);
+    //document.location.reload();
+
+//}
 
 
 function randomizarRespostas () {
@@ -75,15 +147,14 @@ function iniciarQuizz (elementoID) {
     const objetoMain = document.querySelector('.quizzes')
     objetoMain.classList.add('escondido')
 
-    const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${elementoID}`)
+    const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${elementoID}`);
 
     promise.then(renderizarQuizzSelecionado)
-
 
 }
 
 function renderizarQuizzSelecionado (response) {
-
+    QuizzObject = response.data;
     const paginaQuizz = document.querySelector('.paginaQuizz');
     paginaQuizz.innerHTML = '';
     let paginaQuizzRespostas = '';
@@ -108,7 +179,7 @@ function renderizarQuizzSelecionado (response) {
         paginaQuizz.innerHTML += 
         
         `<div class="boxPerguntas">
-        <div class="pergunta">${perguntasArr[i].title}</div>
+        <div class="pergunta" style="background-color:${perguntasArr[i].color}">${perguntasArr[i].title}</div>
             <div class="opcoes">
                 ${paginaQuizzRespostas}
             </div>
@@ -124,10 +195,13 @@ function renderizarQuizzSelecionado (response) {
             <div class="tituloQuizz">${response.data.title}</div>
         </div>`+paginaQuizz.innerHTML
         +
-        `<button class="reiniciar" onclick="reiniciarQuizz()">Reiniciar Quizz</button>
-        <button class="retornar" onclick="retornaHome()">Voltar à home</button>`
+        `<div class="footer">
+            <button class="reiniciar" onclick="reiniciarQuizz()">Reiniciar Quizz</button>
+            <button class="retornar" onclick="retornaHome()">Voltar à home</button>
+         </div>`
         
     let header = document.querySelector(".boxTitulo");
+
     header.scrollIntoView();
 }
 
@@ -141,28 +215,85 @@ function retornaHome () {
 
     const objetoMain = document.querySelector('.quizzes')
     objetoMain.classList.remove('escondido')
+    document.location.reload();
+
 }
 
 
 function selecionaResposta(divSelecionado){
     
     if (divSelecionado.classList.contains("true")){
-
-        divSelecionado.classList.toggle('color-green');
+        numAcertos++
     }else {
-        divSelecionado.classList.toggle("color-red");
+        numErros++
     }
 
-    respostasArr = divSelecionado.parentNode.childNodes
+    const pergunta = divSelecionado.parentNode
+    pergunta.classList.add('respondido')
+
+    const respostasArr = divSelecionado.parentNode.childNodes
 
     for (let i=1; i<respostasArr.length-1; i++) {
         respostasArr[i].removeAttribute("onclick");
 
-        if( (respostasArr[i].classList.contains("color-red")) || (respostasArr[i].classList.contains("color-green")) ) {
-   
+        if( (respostasArr[i].classList.contains("true")) ) { 
+            respostasArr[i].classList.add("color-green", "opcao-outros")
         } else {
-            respostasArr[i].classList.add("opcao-outros");
+            respostasArr[i].classList.add("color-red", "opcao-outros");
         }
+    }
+
+    divSelecionado.classList.remove("opcao-outros")
+
+    proximo = divSelecionado.parentNode.parentNode.nextSibling;
+    setTimeout(autoScroll, 1700)
+    checarRespostas();
+
+    function autoScroll () {
+        proximo.scrollIntoView()
+    }
+}
+
+function checarRespostas () {
+
+    const opcoes = document.querySelectorAll('.opcoes')
+    opcoesCheck = Array.from(opcoes)
+
+    if ( opcoesCheck.every((opcao) => opcao.classList.contains("respondido"))) {
+
+        renderizarResultado();
+    }
+}
+
+function renderizarResultado () {
+
+    const resultado = document.querySelector('.footer')
+    const calculaAcertos = Math.round((numAcertos/(numAcertos+numErros))*100)
+
+
+    for (let i = 0; i<QuizzObject.levels.length; i++) {
+        
+        if ( ((calculaAcertos>=QuizzObject.levels[i].minValue) && (calculaAcertos<QuizzObject.levels[i+1])) || (calculaAcertos>=QuizzObject.levels[i].minValue && calculaAcertos<= 100)){
+
+            resultado.innerHTML = 
+    
+            `<div class="boxResultado">
+                <div class="resultTitle"> ${calculaAcertos}% de acertos: ${QuizzObject.levels[i].title}</div>
+                <img class="resultImg" src="${QuizzObject.levels[i].image}"> 
+                <div class="resultText">${QuizzObject.levels[i].text}</div>
+             </div>
+            <button class="reiniciar" onclick="reiniciarQuizz()">Reiniciar Quizz</button>
+            <button class="retornar" onclick="retornaHome()">Voltar à home</button>`
+
+        }   
+    }
+
+    setTimeout (autoScroll,1700)
+    numAcertos = 0;
+    numErros = 0;
+
+    function autoScroll (){
+        resultado.scrollIntoView();
     }
 }
 
@@ -171,7 +302,10 @@ function criarQuizz(){
     const objetoMain = document.querySelector('.conteudo')
 
     objetoCriarGame.classList.toggle('escondido')
-    objetoMain.classList.toggle('escondido')
+    objetoMain.classList.toggle('escondido') 
+    let titulo = document.querySelector(".criar1tituloquizz");
+    titulo.value = "qlqcoisa";
+
 }
 
 
@@ -182,7 +316,7 @@ function prosseguircriarperguntas(){
     console.log(tituloquizzcriado);
 
     let urltituloquizzcriado = document.querySelector(".criar1urlquizz").value;   
-    console.log(urltituloquizzcriado);
+    checkUrl(urltituloquizzcriado);
 
     let quantidadeperguntasquizzcriado = document.querySelector(".criar1quantidadeperguntasquizz").value;
     console.log(quantidadeperguntasquizzcriado);
@@ -190,7 +324,7 @@ function prosseguircriarperguntas(){
     let quantidadeniveisquizzcriado = document.querySelector(".criar1quantidadeniveisquizz").value;
     console.log (quantidadeniveisquizzcriado);
 
-    if(tituloquizzcriado.length< 20 || tituloquizzcriado.length>65 || urltituloquizzcriado.includes('http') === false || quantidadeperguntasquizzcriado <3 || quantidadeniveisquizzcriado <2){
+    if(tituloquizzcriado.length< 20 || tituloquizzcriado.length>65 || funciona === false || quantidadeperguntasquizzcriado <3 || quantidadeniveisquizzcriado <2){
         let campocriarquizz = document.querySelector(".criar1infosquizz");
         campocriarquizz.innerHTML =`
         <input type="text" class="criar1tituloquizz inputcriar1" placeholder="Título do seu quizz">
@@ -312,7 +446,8 @@ function prosseguircriarniveis(){
             break;
         }
         a.answers[0].image = document.querySelector(urlrespostacorreta).value;
-        if(a.answers[0].image.includes('http') === false){
+        checkUrl(a.answers[0].image);
+        if(funciona === false){
             erroperguntas(i);
             break;
         }
@@ -322,7 +457,8 @@ function prosseguircriarniveis(){
             break;
         }
         a.answers[1].image = document.querySelector(urlrespostaincorreta1).value;
-        if(a.answers[1].image.includes('http') === false){
+        checkUrl(a.answers[1].image);
+        if(funciona === false){
             erroperguntas(i);
             break;
         }
@@ -337,7 +473,8 @@ function prosseguircriarniveis(){
             }
             b.text = document.querySelector(respostaincorreta2).value;
             b.image = document.querySelector(urlrespostaincorreta2).value;
-            if(b.image.includes('http')===false)
+            checkUrl(b.image);
+            if(funciona ===false)
             {
                 erroperguntas(i);
                 break;
@@ -354,7 +491,8 @@ function prosseguircriarniveis(){
             }
             b.text = document.querySelector(respostaincorreta3).value;
             b.image = document.querySelector(urlrespostaincorreta3).value;
-            if(b.image.includes('http')===false)
+            checkUrl(b.image);
+            if(funciona ===false)
             {
                 erroperguntas(i);
                 break;
@@ -475,7 +613,8 @@ function finalizarquizz(){
             break;
         }
         a.image = document.querySelector(url).value;
-        if(a.image.includes('http') === false ){
+        checkUrl(a.image);
+        if( funciona === false ){
             erroniveis(i);
             break;
         }
@@ -520,7 +659,8 @@ function finalizarquizz(){
         quizz.questions = questions;
         quizz.levels = niveis;
         console.log(quizz);
-        abrecriar4();
+        let promise = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quizz);
+        promise.then(abrecriar4);
     }
 }
 function erroniveis(i){
@@ -541,7 +681,27 @@ function erroniveis(i){
 
 
 }
-function abrecriar4(){
+function abrecriar4(resposta){
+    console.log(resposta);
+    let a = {
+        id: "",
+        key:""
+    };
+    a.id = resposta.data.id;
+    a.key = resposta.data.key;
+    
+    let buscaquizzes = localStorage.getItem("quizzesusuario");
+    if (buscaquizzes === null){
+        localStorage.setItem("quizzesusuario", "[]" );
+        buscaquizzes = localStorage.getItem("quizzesusuario");
+    }
+    let buscaquizzesarray = JSON.parse(buscaquizzes);
+    buscaquizzesarray.push(a);
+    let arrayatualizado = JSON.stringify(buscaquizzesarray);
+    localStorage.setItem("quizzesusuario", arrayatualizado);
+
+    
+
     let criar3 = document.querySelector(".criar3");
     criar3.classList.add("escondido");
     let criar4 = document.querySelector(".criar4");
@@ -556,8 +716,29 @@ function abrecriar4(){
         <img src="${img}" class="criar4imagem">
         <h1>${titulo}</h1>
     </div>
-    <button class="criar4botao">Acessar Quizz</button>
-    <button class="criar4botaovoltar">Voltar para Home</button>`
+    <button class="criar4botao" onclick="botao4(${resposta.data.id})">Acessar Quizz</button>
+    <button class="criar4botaovoltar" onclick="botaohome()">Voltar para Home</button>`
+
 }
+function botao4(id){
+    let iddoquizz= id;
+    let criar4 = document.querySelector(".criar4");
+    criar4.classList.add("escondido");
+    const objetoMain = document.querySelector('.conteudo')
+    objetoMain.classList.toggle('escondido'); 
+    iniciarQuizz(iddoquizz);
+}
+function botaohome(){
+    document.location.reload();
+}
+function checkUrl(string) {
+    try {
+     let url = new URL(string)
+     funciona = true;
+   } catch(err) {
+       funciona = false;
+   }
+ }
+ 
 
-
+ 
